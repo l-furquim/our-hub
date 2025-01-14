@@ -1,6 +1,6 @@
 package ourhub.api.services;
 
-import ourhub.api.domain.entities.Hub;
+import ourhub.api.domains.entities.Hub;
 
 public interface HubService {
     Hub get(final String id);

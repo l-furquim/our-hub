@@ -1,6 +1,6 @@
 package ourhub.api.services;
 
-import ourhub.api.domain.entities.Message;
+import ourhub.api.domains.entities.Message;
 
 public interface MessageService {
     Message get(final Integer id);

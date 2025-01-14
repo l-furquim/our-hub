@@ -1,4 +1,4 @@
-package ourhub.api.domain.entities;
+package ourhub.api.domains.entities;
 
 public class Hub {
     private String id;

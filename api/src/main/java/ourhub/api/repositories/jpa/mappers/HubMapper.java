@@ -1,6 +1,6 @@
 package ourhub.api.repositories.jpa.mappers;
 
-import ourhub.api.domain.entities.Hub;
+import ourhub.api.domains.entities.Hub;
 import ourhub.api.repositories.jpa.models.HubJpaModel;
 
 public class HubMapper {

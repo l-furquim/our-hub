@@ -1,4 +1,4 @@
-package ourhub.api.domain.entities;
+package ourhub.api.domains.entities;
 
 public class Message {
     private Integer id;

@@ -1,7 +1,7 @@
 package ourhub.api.services.implementation;
 
-import ourhub.api.domain.entities.Hub;
-import ourhub.api.domain.gateway.HubGateway;
+import ourhub.api.domains.entities.Hub;
+import ourhub.api.domains.gateway.HubGateway;
 import ourhub.api.services.HubService;
 
 public class HubServiceImplementation implements HubService {

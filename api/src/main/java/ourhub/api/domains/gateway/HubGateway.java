@@ -1,6 +1,6 @@
-package ourhub.api.domain.gateway;
+package ourhub.api.domains.gateway;
 
-import ourhub.api.domain.entities.Hub;
+import ourhub.api.domains.entities.Hub;
 
 public interface HubGateway {
     void create(final Hub hub);

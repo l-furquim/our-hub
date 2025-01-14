@@ -1,7 +1,7 @@
 package ourhub.api.repositories.jpa;
 
-import ourhub.api.domain.entities.Hub;
-import ourhub.api.domain.gateway.HubGateway;
+import ourhub.api.domains.entities.Hub;
+import ourhub.api.domains.gateway.HubGateway;
 import ourhub.api.repositories.jpa.mappers.HubMapper;
 
 public class HubJpaGateway implements HubGateway {
