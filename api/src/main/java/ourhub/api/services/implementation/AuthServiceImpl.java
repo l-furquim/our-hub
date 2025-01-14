@@ -3,6 +3,7 @@ package ourhub.api.services.implementation;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,6 +36,22 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         }
 
         return user;
+    }
+
+    @Override
+    public String validateToken(String token) {
+        try{
+            final var aVerifier = JWT.require(ALGORITHM)
+                    .withIssuer(ISSUER).build();
+
+            final var decodedToken = aVerifier.verify(token);
+
+            final var subject = decodedToken.getSubject();
+
+            return subject;
+        }catch (Exception e){
+            throw new JWTVerificationException("Invalid token " + token + e.getMessage());
+        }
     }
 
     @Override
