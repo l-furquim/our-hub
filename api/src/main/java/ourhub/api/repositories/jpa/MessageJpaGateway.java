@@ -2,10 +2,14 @@ package ourhub.api.repositories.jpa;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import ourhub.api.domains.entities.Message;
 import ourhub.api.domains.gateway.MessageGateway;
 import ourhub.api.repositories.jpa.mappers.MessageMapper;
 
+import java.time.Instant;
+
+@Component
 public class MessageJpaGateway implements MessageGateway {
 
     private static final Logger log = LoggerFactory.getLogger(MessageJpaGateway.class);
@@ -16,7 +20,7 @@ public class MessageJpaGateway implements MessageGateway {
     }
 
     @Override
-    public void create(Message message) {
+    public void create(Message message, Instant sendedAt) {
         final var messageModel = MessageMapper.toModel(message);
 
         this.repository.save(messageModel);

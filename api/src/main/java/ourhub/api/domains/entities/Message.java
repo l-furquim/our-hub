@@ -1,17 +1,22 @@
 package ourhub.api.domains.entities;
 
+import java.time.Instant;
+
 public class Message {
     private Integer id;
     private String content;
+    private Instant sendedAt;
 
-    private Message(final String content){
+    private Message(final String content, final Instant sendedAt){
         this.content = content;
+        this.sendedAt = sendedAt;
         this.validate();
     }
 
-    public static Message build(final String content){
+    public static Message build(final String content, final Instant sendedAt){
         return new Message(
-                content
+                content,
+                sendedAt
         );
     }
 
@@ -35,5 +40,13 @@ public class Message {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Instant getSendedAt() {
+        return sendedAt;
+    }
+
+    public void setSendedAt(Instant sendedAt) {
+        this.sendedAt = sendedAt;
     }
 }

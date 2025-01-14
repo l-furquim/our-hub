@@ -1,9 +1,11 @@
 package ourhub.api.services.implementation;
 
+import org.springframework.stereotype.Service;
 import ourhub.api.domains.entities.Hub;
 import ourhub.api.domains.gateway.HubGateway;
 import ourhub.api.services.HubService;
 
+@Service
 public class HubServiceImplementation implements HubService {
 
     private final HubGateway hubGateway;

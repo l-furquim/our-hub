@@ -7,7 +7,8 @@ public class MessageMapper {
 
     public static Message toDomain(MessageJpaModel model){
         final var messageDomain = Message.build(
-                model.getContent()
+                model.getContent(),
+                model.getSendedAt()
         );
         messageDomain.setId(model.getId());
         return messageDomain;
@@ -15,7 +16,8 @@ public class MessageMapper {
 
     public static MessageJpaModel toModel(Message message){
         return new MessageJpaModel(
-                message.getContent()
+                message.getContent(),
+                message.getSendedAt()
         );
     }
 }

@@ -1,9 +1,13 @@
 package ourhub.api.services.implementation;
 
+import org.springframework.stereotype.Service;
 import ourhub.api.domains.entities.Message;
 import ourhub.api.domains.gateway.MessageGateway;
 import ourhub.api.services.MessageService;
 
+import java.time.Instant;
+
+@Service
 public class MessageServiceImplementation implements MessageService {
     private final MessageGateway MessageGateway;
 
@@ -27,10 +31,10 @@ public class MessageServiceImplementation implements MessageService {
     }
 
     @Override
-    public Message create(String content) {
-        final var message = Message.build(content);
+    public Message create(String content, Instant sendedAt) {
+        final var message = Message.build(content, sendedAt);
 
-        this.MessageGateway.create(message);
+        this.MessageGateway.create(message,sendedAt);
 
         return message;
     }

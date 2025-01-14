@@ -1,10 +1,10 @@
 CREATE TABLE hub (
-    hub_id  VARCHAR(200) PRIMARY KEY NOT NULL,
+    id  VARCHAR(200) PRIMARY KEY NOT NULL,
     name VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE message (
-    message_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     content VARCHAR(200) NOT NULL,
     sended_at TIMESTAMP NOT NULL
 );

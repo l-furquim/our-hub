@@ -1,9 +1,11 @@
 package ourhub.api.repositories.jpa;
 
+import org.springframework.stereotype.Component;
 import ourhub.api.domains.entities.Hub;
 import ourhub.api.domains.gateway.HubGateway;
 import ourhub.api.repositories.jpa.mappers.HubMapper;
 
+@Component
 public class HubJpaGateway implements HubGateway {
 
     private final HubJpaRepository repository;

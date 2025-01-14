@@ -2,6 +2,8 @@ package ourhub.api.repositories.jpa.models;
 
 import jakarta.persistence.*;
 
+import java.time.Instant;
+
 @Entity(name = "message")
 @Table(name = "message")
 public class MessageJpaModel {
@@ -14,12 +16,16 @@ public class MessageJpaModel {
         @Column(name = "content")
         private String content;
 
+        @Column(name = "sended_at")
+        private Instant sendedAt;
+
         public MessageJpaModel(){
 
         }
 
-        public MessageJpaModel(final String content){
+        public MessageJpaModel(final String content, final Instant sendedAt){
             this.content = content;
+            this.sendedAt = sendedAt;
         }
 
 
@@ -37,5 +43,13 @@ public class MessageJpaModel {
 
         public void setId(Integer id) {
             this.id = id;
+        }
+
+        public Instant getSendedAt() {
+            return sendedAt;
+        }
+
+        public void setSendedAt(Instant sendedAt) {
+            this.sendedAt = sendedAt;
         }
 }
