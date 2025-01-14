@@ -5,6 +5,8 @@ import ourhub.api.domains.entities.Hub;
 import ourhub.api.domains.gateway.HubGateway;
 import ourhub.api.services.HubService;
 
+import java.util.UUID;
+
 @Service
 public class HubServiceImplementation implements HubService {
 
@@ -31,7 +33,7 @@ public class HubServiceImplementation implements HubService {
     }
 
     @Override
-    public Hub create(String id, String name) {
+    public Hub create(String name) {
         final var hubAlredyExists = this.hubGateway.findByName(name) != null;
 
         if(hubAlredyExists){
@@ -39,7 +41,7 @@ public class HubServiceImplementation implements HubService {
         }
 
         final var hub = Hub.build(
-                id,
+                UUID.randomUUID().toString(),
                 name
         );
 
