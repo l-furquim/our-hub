@@ -5,6 +5,7 @@ import ourhub.api.domains.entities.Hub;
 import ourhub.api.domains.gateway.HubGateway;
 import ourhub.api.services.HubService;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -33,7 +34,7 @@ public class HubServiceImplementation implements HubService {
     }
 
     @Override
-    public Hub create(String name) {
+    public Hub create(String name, String userId) {
         final var hubAlredyExists = this.hubGateway.findByName(name) != null;
 
         if(hubAlredyExists){
@@ -42,11 +43,21 @@ public class HubServiceImplementation implements HubService {
 
         final var hub = Hub.build(
                 UUID.randomUUID().toString(),
-                name
+                name,
+                userId
         );
 
         this.hubGateway.create(hub);
 
         return hub;
+    }
+
+    @Override
+    public List<Hub> getByUserId(String id) {
+        if(id.isBlank()){
+            throw  new IllegalArgumentException("Cannot find users hubs because id is empty");
+        }
+
+        return this.hubGateway.findByUserId(id);
     }
 }

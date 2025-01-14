@@ -3,17 +3,20 @@ package ourhub.api.domains.entities;
 public class Hub {
     private String id;
     private String name;
+    private String userId;
 
-    private Hub(final String id, final String name){
+    private Hub(final String id, final String name, final String userId){
         this.id = id;
         this.name = name;
+        this.userId = userId;
         this.validate();
     }
 
-    public static Hub build(final String id, final String name){
+    public static Hub build(final String id, final String name, final String userId){
         return new Hub(
             id,
-            name
+            name,
+                userId
         );
     }
 
@@ -37,5 +40,13 @@ public class Hub {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

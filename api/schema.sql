@@ -1,10 +1,21 @@
+CREATE TABLE users (
+    id VARCHAR(200) PRIMARY KEY NOT NULL,
+    name VARCHAR(200) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    created_at TIMESTAMP NOT NULL
+);
+
 CREATE TABLE hub (
     id  VARCHAR(200) PRIMARY KEY NOT NULL,
-    name VARCHAR(200) NOT NULL
+    name VARCHAR(200) NOT NULL,
+    user_id VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE message (
     id SERIAL PRIMARY KEY,
     content VARCHAR(200) NOT NULL,
-    sended_at TIMESTAMP NOT NULL
+    sended_at TIMESTAMP NOT NULL,
+    user_id VARCHAR(200) NOT NULL,
+    hub_id VARCHAR(200) NOT NULL
 );

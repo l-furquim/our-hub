@@ -8,6 +8,8 @@ import ourhub.api.domains.gateway.MessageGateway;
 import ourhub.api.repositories.jpa.mappers.MessageMapper;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class MessageJpaGateway implements MessageGateway {
@@ -20,7 +22,7 @@ public class MessageJpaGateway implements MessageGateway {
     }
 
     @Override
-    public void create(Message message, Instant sendedAt) {
+    public void create(Message message) {
         final var messageModel = MessageMapper.toModel(message);
 
         this.repository.save(messageModel);
@@ -42,5 +44,16 @@ public class MessageJpaGateway implements MessageGateway {
         final var messageModel = this.repository.findById(message.getId());
 
         this.repository.delete(messageModel.get());
+    }
+
+    @Override
+    public List<Message> findByHubId(String id) {
+        final var messages = this.repository.findByHubId(id);
+
+        if(messages.isEmpty()){
+            return new ArrayList<Message>();
+        }
+
+        return messages.stream().map(m -> MessageMapper.toDomain(m)).toList();
     }
 }

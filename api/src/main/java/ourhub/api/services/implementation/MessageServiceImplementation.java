@@ -6,6 +6,7 @@ import ourhub.api.domains.gateway.MessageGateway;
 import ourhub.api.services.MessageService;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class MessageServiceImplementation implements MessageService {
@@ -31,10 +32,10 @@ public class MessageServiceImplementation implements MessageService {
     }
 
     @Override
-    public Message create(String content, Instant sendedAt) {
-        final var message = Message.build(content, sendedAt);
+    public Message create(String content, Instant sendedAt, final String hubId, final String userId) {
+        final var message = Message.build(content, sendedAt, hubId, userId);
 
-        this.MessageGateway.create(message,sendedAt);
+        this.MessageGateway.create(message);
 
         return message;
     }
@@ -48,5 +49,13 @@ public class MessageServiceImplementation implements MessageService {
         }
 
         this.MessageGateway.delete(message);
+    }
+
+    @Override
+    public List<Message> getByHub(String id) {
+        if(id.isBlank()){
+            throw new IllegalArgumentException("Cant find hubs message, id is blank");
+        }
+        return this.MessageGateway.findByHubId(id);
     }
 }

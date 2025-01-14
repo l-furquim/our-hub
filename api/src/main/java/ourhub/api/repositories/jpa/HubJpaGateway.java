@@ -5,6 +5,9 @@ import ourhub.api.domains.entities.Hub;
 import ourhub.api.domains.gateway.HubGateway;
 import ourhub.api.repositories.jpa.mappers.HubMapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class HubJpaGateway implements HubGateway {
 
@@ -36,10 +39,22 @@ public class HubJpaGateway implements HubGateway {
     public Hub findByName(String name) {
         final var hubModel = this.repository.findByName(name);
 
-        if(hubModel == null){
+        if(hubModel.isEmpty()){
             return null;
         }
 
         return HubMapper.toDomain(hubModel.get());
+    }
+
+    @Override
+    public List<Hub> findByUserId(String id) {
+        final var hubs = this.repository.findByUserId(id);
+
+        if(hubs.isEmpty()){
+            return new ArrayList<>();
+        }
+
+        return hubs.stream().map((h -> HubMapper.toDomain(h)
+        )).toList();
     }
 }

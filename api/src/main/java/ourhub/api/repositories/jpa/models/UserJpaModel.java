@@ -27,6 +27,10 @@ public class UserJpaModel {
     @Column(name = "created_at")
     private Instant createdAt;
 
+    public UserJpaModel(){
+
+    }
+
     public UserJpaModel(String id, String email, String name, String password, Instant createdAt) {
         this.id = id;
         this.email = email;

@@ -1,5 +1,6 @@
 package ourhub.api.services.implementation;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ourhub.api.domains.entities.User;
 import ourhub.api.domains.gateway.UserGateway;
@@ -12,6 +13,8 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserGateway userGateway;
+
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public UserServiceImpl(UserGateway gateway){
         this.userGateway = gateway;

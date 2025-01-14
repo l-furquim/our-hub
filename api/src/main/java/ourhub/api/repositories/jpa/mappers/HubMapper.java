@@ -7,13 +7,15 @@ public class HubMapper {
     public static Hub toDomain(HubJpaModel hubJpaModel){
         return Hub.build(
                 hubJpaModel.getId(),
-                hubJpaModel.getName()
+                hubJpaModel.getName(),
+                hubJpaModel.getUserId()
         );
     }
     public static HubJpaModel toModel(Hub hub){
         return new HubJpaModel(
                 hub.getId(),
-                hub.getName()
+                hub.getName(),
+                hub.getUserId()
         );
     }
 }

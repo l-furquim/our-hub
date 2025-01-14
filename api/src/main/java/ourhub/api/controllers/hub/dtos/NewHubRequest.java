@@ -1,3 +1,3 @@
 package ourhub.api.controllers.hub.dtos;
 
-public record NewHubRequest(String name){}
+public record NewHubRequest(String name, String userId){}

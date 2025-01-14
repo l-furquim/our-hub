@@ -24,27 +24,37 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.cors(cors -> {
-                    CorsConfiguration config = new CorsConfiguration();
-                    config.addAllowedOrigin("http://localhost:3000");
-                    config.addAllowedMethod("*");
-                    config.addAllowedHeader("*");
-
-                    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-                    source.registerCorsConfiguration("/**", config);
-
-                    CorsFilter corsFilter = new CorsFilter(source);
-
-                    http.addFilterBefore(corsFilter, CorsFilter.class);
-                })
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST, "user/login").permitAll())
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST, "user/register").permitAll())
-                .authorizeHttpRequests(authorize -> authorize.anyRequest()
-                        .authenticated())
-                .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)
+//        return http.cors(cors -> {
+//                    CorsConfiguration config = new CorsConfiguration();
+//                    config.addAllowedOrigin("http://localhost:3000");
+//                    config.addAllowedMethod("*");
+//                    config.addAllowedHeader("*");
+//
+//                    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//
+//                    source.registerCorsConfiguration("/**", config);
+//
+//                    CorsFilter corsFilter = new CorsFilter(source);
+//
+//                    http.addFilterBefore(corsFilter, CorsFilter.class);
+//                })
+//                .csrf(csrf -> csrf.disable())
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers("/", "/index.html", "/resources/static/**", "/ws/**").permitAll())
+//                .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST, "hub/new").permitAll())
+//                .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST, "user/login").permitAll())
+//                .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST, "user/register").permitAll())
+//                .authorizeHttpRequests(authorize -> authorize.anyRequest()
+//                        .authenticated())
+//                .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)
+//                .build();
+        return http
+                .csrf(csrf -> csrf.disable())  // Desabilita CSRF
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Desabilita o gerenciamento de sessão
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().permitAll()  // Permite todas as requisições sem autenticação
+                )
                 .build();
     }
 
