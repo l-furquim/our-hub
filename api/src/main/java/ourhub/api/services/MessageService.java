@@ -9,5 +9,5 @@ public interface MessageService {
     Message get(final Integer id);
     Message create(final String content, final Instant sendedAt, final String hubId, final String userId);
     void delete(final Integer id);
-    List<Message> getByHub(String id);
+    List<Message> getByHub(String id, Integer pages, Integer items);
 }

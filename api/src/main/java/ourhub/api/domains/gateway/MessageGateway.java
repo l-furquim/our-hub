@@ -9,5 +9,5 @@ public interface MessageGateway {
     void create(final Message message);
     Message findById(final Integer id);
     void delete(final Message message);
-    List<Message> findByHubId(String id);
+    List<Message> findByHubId(String id, Integer pages, Integer items);
 }

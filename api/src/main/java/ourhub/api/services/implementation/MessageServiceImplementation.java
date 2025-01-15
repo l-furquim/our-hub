@@ -52,10 +52,10 @@ public class MessageServiceImplementation implements MessageService {
     }
 
     @Override
-    public List<Message> getByHub(String id) {
+    public List<Message> getByHub(String id, Integer pages, Integer items) {
         if(id.isBlank()){
             throw new IllegalArgumentException("Cant find hubs message, id is blank");
         }
-        return this.MessageGateway.findByHubId(id);
+        return this.MessageGateway.findByHubId(id,pages,items);
     }
 }

@@ -35,9 +35,12 @@ public class MessageController {
         );
     }
 
-    @GetMapping("/find/hub/{hubId}")
-    public ResponseEntity<GetHubMessagesResponse> getHubMessages(@PathVariable("hubId") String hubId){
-        final var messages = this.messageService.getByHub(hubId);
+    @GetMapping("/find/hub/{hubId}/{page}/{items}")
+    public ResponseEntity<GetHubMessagesResponse> getHubMessages(@PathVariable("hubId") String hubId,
+                                                                 @PathVariable("page") Integer pages,
+                                                                 @PathVariable("items") Integer items){
+
+        final var messages = this.messageService.getByHub(hubId, pages, items);
 
         return ResponseEntity.ok().body(new GetHubMessagesResponse(messages));
     }

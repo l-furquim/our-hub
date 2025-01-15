@@ -2,6 +2,7 @@ package ourhub.api.repositories.jpa;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import ourhub.api.domains.entities.Message;
 import ourhub.api.domains.gateway.MessageGateway;
@@ -47,8 +48,8 @@ public class MessageJpaGateway implements MessageGateway {
     }
 
     @Override
-    public List<Message> findByHubId(String id) {
-        final var messages = this.repository.findByHubId(id);
+    public List<Message> findByHubId(String id, Integer pages, Integer items) {
+        final var messages = this.repository.findByHubId(id, PageRequest.of(pages,items));
 
         if(messages.isEmpty()){
             return new ArrayList<Message>();
