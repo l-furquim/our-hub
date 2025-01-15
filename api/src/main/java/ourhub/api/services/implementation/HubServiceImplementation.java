@@ -2,6 +2,8 @@ package ourhub.api.services.implementation;
 
 import org.springframework.stereotype.Service;
 import ourhub.api.domains.entities.Hub;
+import ourhub.api.domains.exceptions.hub.HubNotFoundException;
+import ourhub.api.domains.exceptions.hub.InvalidDataForNewHubException;
 import ourhub.api.domains.gateway.HubGateway;
 import ourhub.api.services.HubService;
 
@@ -21,7 +23,7 @@ public class HubServiceImplementation implements HubService {
     @Override
     public Hub get(String id) {
         if(id.isEmpty()){
-            throw new IllegalArgumentException("Cannot find a hub with a empty string");
+            throw new HubNotFoundException("Cannot find a hub with a empty string");
         }
 
         final var hub = this.hubGateway.findById(id);
@@ -38,7 +40,7 @@ public class HubServiceImplementation implements HubService {
         final var hubAlredyExists = this.hubGateway.findByName(name) != null;
 
         if(hubAlredyExists){
-            throw new IllegalArgumentException("A hub alredy exists with this name");
+            throw new InvalidDataForNewHubException("A hub alredy exists with this name");
         }
 
         final var hub = Hub.build(
@@ -55,7 +57,7 @@ public class HubServiceImplementation implements HubService {
     @Override
     public List<Hub> getByUserId(String id) {
         if(id.isBlank()){
-            throw  new IllegalArgumentException("Cannot find users hubs because id is empty");
+            throw  new HubNotFoundException("Cannot find users hubs because id is empty");
         }
 
         return this.hubGateway.findByUserId(id);

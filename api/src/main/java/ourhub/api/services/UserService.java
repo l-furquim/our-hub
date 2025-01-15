@@ -8,4 +8,5 @@ public interface UserService {
     User findById(String id);
     User findByEmail(String email);
     String login(String email, String password);
+    boolean validateToken(String token);
 }

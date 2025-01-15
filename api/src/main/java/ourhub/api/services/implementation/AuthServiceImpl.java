@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ourhub.api.domains.entities.User;
+import ourhub.api.domains.exceptions.user.InvalidAuthException;
 import ourhub.api.domains.gateway.UserGateway;
 import ourhub.api.services.AuthService;
 import ourhub.api.services.UserService;
@@ -81,6 +82,25 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
             return token;
         }catch (JWTCreationException e){
             throw new IllegalArgumentException(e.getMessage());
+        }
+    }
+
+    public boolean isTokenValid(String token){
+        var isValid = false;
+
+        try{
+            final var anAlgorithm = Algorithm.HMAC256(SECRET);
+
+            final var aVerifier = JWT.require(anAlgorithm)
+                    .withIssuer(ISSUER).build();
+
+            final var decodedToken = aVerifier.verify(token);
+
+            isValid = true;
+
+            return isValid;
+        }catch (Exception e){
+            throw new InvalidAuthException("Token invalido "+ token + e.getMessage());
         }
     }
 }

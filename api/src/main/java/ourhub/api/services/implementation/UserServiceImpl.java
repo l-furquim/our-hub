@@ -3,6 +3,9 @@ package ourhub.api.services.implementation;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ourhub.api.domains.entities.User;
+import ourhub.api.domains.exceptions.user.InvalidAuthException;
+import ourhub.api.domains.exceptions.user.UserAlredyExistsException;
+import ourhub.api.domains.exceptions.user.UserNotFoundException;
 import ourhub.api.domains.gateway.UserGateway;
 import ourhub.api.services.UserService;
 
@@ -25,7 +28,7 @@ public class UserServiceImpl implements UserService {
         final var userAlredyExists = this.userGateway.findByEmail(email);
 
         if(userAlredyExists != null){
-            throw new IllegalArgumentException("A user alredy exists with this email");
+            throw new UserAlredyExistsException("A user alredy exists with this email");
         }
 
 
@@ -49,7 +52,7 @@ public class UserServiceImpl implements UserService {
         final var user = this.userGateway.findById(id);
 
         if(user == null){
-            throw new IllegalArgumentException("A user alredy exists with this email");
+            throw new UserNotFoundException("A user alredy exists with this email");
         }
 
         return user;
@@ -60,7 +63,7 @@ public class UserServiceImpl implements UserService {
         final var user = this.userGateway.findById(email);
 
         if(user == null){
-            throw new IllegalArgumentException("Cannot find a user with that email " + email);
+            throw new UserNotFoundException("Cannot find a user with that email " + email);
         }
 
         return user;
@@ -75,7 +78,18 @@ public class UserServiceImpl implements UserService {
 
             return AuthService.createToken(email);
         }else{
-            throw new IllegalArgumentException("Email or password are wrong");
+            throw new InvalidAuthException("Email or password are wrong");
         }
+    }
+
+    @Override
+    public boolean validateToken(String token) {
+        if(token.isBlank()){
+            throw new InvalidAuthException("Cannot validate a blank token");
+        }
+
+        final var AuthService = new AuthServiceImpl(this.userGateway);
+
+        return AuthService.isTokenValid(token);
     }
 }

@@ -2,6 +2,8 @@ package ourhub.api.services.implementation;
 
 import org.springframework.stereotype.Service;
 import ourhub.api.domains.entities.Message;
+import ourhub.api.domains.exceptions.message.InvalidDataForMessageSearchException;
+import ourhub.api.domains.exceptions.message.MessageNotFoundException;
 import ourhub.api.domains.gateway.MessageGateway;
 import ourhub.api.services.MessageService;
 
@@ -19,13 +21,13 @@ public class MessageServiceImplementation implements MessageService {
     @Override
     public Message get(Integer id) {
         if(id == 0 || id == null){
-            throw new IllegalArgumentException("Id invalid for search");
+            throw new MessageNotFoundException("Id invalid for search");
         }
 
         final var message = this.MessageGateway.findById(id);
 
         if(message == null){
-            throw new IllegalArgumentException("Message not found with id " + id);
+            throw new MessageNotFoundException("Message not found with id " + id);
         }
 
         return message;
@@ -45,7 +47,7 @@ public class MessageServiceImplementation implements MessageService {
         final var message = this.MessageGateway.findById(id);
 
         if(message == null){
-            throw new IllegalArgumentException("Cant delete, message doesn't exist");
+            throw new MessageNotFoundException("Cant delete, message doesn't exist");
         }
 
         this.MessageGateway.delete(message);
@@ -54,7 +56,7 @@ public class MessageServiceImplementation implements MessageService {
     @Override
     public List<Message> getByHub(String id, Integer pages, Integer items) {
         if(id.isBlank()){
-            throw new IllegalArgumentException("Cant find hubs message, id is blank");
+            throw new InvalidDataForMessageSearchException("Cant find hubs message, id is blank");
         }
         return this.MessageGateway.findByHubId(id,pages,items);
     }

@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ourhub.api.controllers.user.dtos.LoginUserRequest;
-import ourhub.api.controllers.user.dtos.LoginUserResponse;
-import ourhub.api.controllers.user.dtos.NewUserRequest;
+import ourhub.api.controllers.user.dtos.*;
 import ourhub.api.services.UserService;
 
 @RestController
@@ -40,6 +38,13 @@ public class UserController {
                 request.password()
         );
 
-        return ResponseEntity.ok().body(new LoginUserResponse(token));
+        return ResponseEntity.ok().body(new LoginUserResponse(token ));
+    }
+
+    @PostMapping("/validateToken")
+    public ResponseEntity<ValidateTokenResponse> validateToken(@RequestBody ValidateTokenRequest request){
+        final var isValid = this.userService.validateToken(request.token());
+
+        return ResponseEntity.ok().body(new ValidateTokenResponse(isValid));
     }
 }
