@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { RegisterForm } from "./components/register/register-form";
 
 export default function Home() {
   return (
@@ -22,11 +23,8 @@ export default function Home() {
               <p className="text-sm text-muted-foreground">ou continue com </p>
               <hr className="h-[1px] border-cyan-900 w-[15%]" />
             </div>
-          <div className="flex flex-col gap-5 justify-center items-center w-full">
-            <input placeholder="seu@email.com" type="text" className="placeholder:text-sm text-sm focus:outline-none placeholder:text-muted-foreground w-[55%] bg-zinc-900 border-[1px] h-9 border-cyan-900 rounded-md" />
-            <input placeholder="nickname" type="text" className="placeholder:text-sm text-sm focus:outline-none placeholder:text-muted-foreground w-[55%] bg-zinc-900 border-[1px] h-9 border-cyan-900 rounded-md" />
-            <input placeholder="senha123" type="text" className="placeholder:text-sm text-sm focus:outline-none placeholder:text-muted-foreground w-[55%] bg-zinc-900 border-[1px] h-9 border-cyan-900 rounded-md" />
-            <Button className="w-[55%] bg-cyan-900 hover:bg-cyan-950  border-none h-9 rounded-md" >Criar conta</Button>
+          <div className=" w-full">
+            <RegisterForm/>
           </div>
         </div>
       </div>

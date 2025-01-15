@@ -1,0 +1,15 @@
+meta {
+  name: find user hubs
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:8080/hub/find/user/3c19bbb7-0ccd-4d94-9635-bcf6ecd0da74
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvdXJodWItYXV0aCIsInN1YiI6Imx1Y2FzQGdtYWlsLmNvbSIsImV4cCI6MTczNjkwNTg0N30.WTFEHTT55AaWJkLipn72yqMXV0UiyycgLRHiRZfphkM
+}

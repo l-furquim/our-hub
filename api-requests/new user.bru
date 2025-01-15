@@ -1,0 +1,19 @@
+meta {
+  name: new user
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/user/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "luiza@gmail.com",
+    "name": "luiza",
+    "password": "ishow123"
+  }
+}

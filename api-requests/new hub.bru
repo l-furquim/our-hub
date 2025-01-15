@@ -1,0 +1,22 @@
+meta {
+  name: new hub
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/hub/new
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvdXJodWItYXV0aCIsInN1YiI6Imx1Y2FzQGdtYWlsLmNvbSIsImV4cCI6MTczNjkwMTExMX0.L4WyzuGevrNd5ipbFXhwTxQflz2itD5X2Ic2z4PivEw
+}
+
+body:json {
+  {
+    "name": "Hub dos amigos",
+    "userId": "3c19bbb7-0ccd-4d94-9635-bcf6ecd0da74"
+  }
+}
