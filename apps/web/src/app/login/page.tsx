@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { LoginForm } from "../components/login/login-form";
 
 export default function LoginPage(){
   return (
@@ -23,9 +24,7 @@ export default function LoginPage(){
             <hr className="h-[1px] border-cyan-900 w-[15%]" />
           </div>
         <div className="flex flex-col gap-5 justify-center items-center w-full">
-          <input placeholder="seu@email.com" type="text" className="placeholder:text-sm text-sm focus:outline-none placeholder:text-muted-foreground w-[55%] bg-zinc-900 border-[1px] h-9 border-cyan-900 rounded-md" />          
-          <input placeholder="senha123" type="text" className="placeholder:text-sm text-sm focus:outline-none placeholder:text-muted-foreground w-[55%] bg-zinc-900 border-[1px] h-9 border-cyan-900 rounded-md" />
-          <Button className="w-[55%] bg-cyan-900 hover:bg-cyan-950  border-none h-9 rounded-md" >Entrar</Button>
+          <LoginForm/>
         </div>
       </div>
     </div>

@@ -1,14 +1,13 @@
 "use server"
 import type { ApiErrorResponse, ApiResponse } from "@/app/@types/api-response-types";
-import type { RegisterFormType } from "@/app/components/register/register-form";
 import { backEndApi } from "@/lib/api";
 import { AxiosError } from "axios";
 
-export async function RegisterUser(data: string){
+export async function LoginUser(data: string){
   let apiResponse;
 
   try{  
-    const response = await backEndApi.post("/user/register", data);
+    const response = await backEndApi.post("/user/login", data);
 
     if(response.status == 200){
        apiResponse = { sucessMessage: true };

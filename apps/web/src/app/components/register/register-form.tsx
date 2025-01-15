@@ -32,9 +32,12 @@ export const RegisterForm = () => {
       const response = await RegisterUser(JSON.stringify(data));
 
       if(response?.sucessMessage){
-        location.replace("/home");
+        setMessage(<p className="text-sm text-emerald-700">Conta criada com sucesso!</p>);
+
+        setTimeout(() => location.replace("/login"), 1000)
+      }else{
+        setMessage(<p className="text-sm text-red-700">{response?.errorMessage}</p>)
       }
-      setMessage(<p>{response?.errorMessage}</p>)
 
 }
 
