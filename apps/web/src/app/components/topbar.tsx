@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button"
 import { Bell } from "lucide-react"
+import type { UserAuth } from "../types/user-types"
 
-export const TopBar = () => {
+export const TopBar: React.FC<UserAuth> = ({name, id}) => {
   return (
     <div className="flex w-full justify-end mt-3 gap-8">
       <Button className="bg-transparent hover:text-zinc-300 hover:bg-transparent">

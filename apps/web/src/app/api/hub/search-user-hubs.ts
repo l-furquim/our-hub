@@ -8,10 +8,9 @@ import { cookies } from "next/headers";
 
 
 
-export async function SearchUserHubs(){
+export async function SearchUserHubs(id: string){
   const cookie = await cookies();
 
-  const id = cookie.get("id")?.value;
   const token = cookie.get("ourhub-auth")?.value
 
   try{

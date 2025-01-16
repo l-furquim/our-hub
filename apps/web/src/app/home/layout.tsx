@@ -7,7 +7,6 @@ export default function HomeLayout({
 }: {children: React.ReactNode}){
   return (
     <div className="w-full h-[100vh] flex">
-      <SideBar/>
       {children}
     </div>
   )

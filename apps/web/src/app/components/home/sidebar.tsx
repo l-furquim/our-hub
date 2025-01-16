@@ -3,10 +3,13 @@ import Link from "next/link"
 import { NewHubButton } from "./new-hub-button"
 import { HubContainer } from "./hub-container"
 import { SearchUserHubs } from "@/app/api/hub/search-user-hubs"
-import { Suspense } from "react"
+import React, { Suspense } from "react"
+import type { UserAuth } from "@/app/types/user-types"
 
-export const SideBar = async () => {
-  const hubs = await SearchUserHubs();
+
+
+export const SideBar: React.FC<UserAuth> = async ({name, id}) => {
+// const hubs = await SearchUserHubs(id);
 
   return (
     <div className="w-[17%] bg-zinc-900 h-full gap-10 flex flex-col items-center">
@@ -17,7 +20,7 @@ export const SideBar = async () => {
       <NewHubButton/>
       <li className="list-none flex flex-col gap-6">
         <Suspense fallback={<p>Carregando...</p>}>
-          <HubContainer hubs={hubs} />  
+          <HubContainer/>  
         </Suspense>   
       </li>
     </div>

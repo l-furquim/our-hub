@@ -1,6 +1,7 @@
 "use client"
 
 import type { Hub } from "@/app/types/hub-types";
+
 import Link from "next/link";
 import type React from "react";
 
@@ -8,7 +9,27 @@ type HubContainerProps = {
   hubs: Hub[]
 }
 
-export const HubContainer: React.FC<HubContainerProps> = ({hubs}) => {
+
+const hubs = [
+  {
+    name: "Hub dos amigos",
+    image: "http://github.com/l-furquim.png",
+    id: "1111",
+  },
+  {
+    name: "Hub dos amigos",
+    image: "http://github.com/l-furquim.png",
+    id: "11122",
+  },
+  {
+    name: "Hub dos amigos",
+    image: "http://github.com/l-furquim.png",
+    id: "10298",
+  },
+]
+
+export const HubContainer: React.FC = () => {
+  
 
   if(!hubs){
     return <p>Erro ao buscar os hubs...</p>
@@ -21,9 +42,9 @@ export const HubContainer: React.FC<HubContainerProps> = ({hubs}) => {
       <>
         {hubs.map((hub) => (
        <ul key={hub.id} className="list-none">
-        <div className="w-full" key={hub.id}>
+        <div className="w-full">
             <Link className="w-full flex gap-2 justify-center items-center" href={`/hub/${hub.id}`}>
-              <img src={"http://github.com/furqas.png"} alt="Hub image" className="rounded-xl" width={32} height={32} />
+              <img src={"http://github.com/l-furquim.png"} alt="Hub image" className="rounded-xl" width={32} height={32} />
               <p>{hub.name.length > 13 ? hub.name.slice(0, 13) + "..." : hub.name}</p>
             </Link>
           </div>

@@ -5,3 +5,8 @@ export type User = {
   password: string,
   createdAt: Date,
 };
+
+export type UserAuth = {
+  id: string | undefined,
+  name: string | undefined
+}
