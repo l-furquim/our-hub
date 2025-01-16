@@ -4,6 +4,8 @@ import { NextResponse, type NextRequest } from "next/server";
 export default async function middleware(request: NextRequest){
   const authToken = request.cookies.get("ourhub-auth")?.value;
 
+  console.log(authToken)
+
   if(authToken){
     const isValid = await validateToken(authToken);
   

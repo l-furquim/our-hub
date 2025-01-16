@@ -44,9 +44,13 @@ public class UserJpaGateway implements UserGateway {
     }
 
     @Override
-    public boolean login(String email, String password) {
-        final var userModel = this.repository.findByEmail(email);
+    public User login(String email, String password) {
+        final var userModel =  this.repository.findByEmail(email);
 
-        return userModel.isPresent() && (userModel.get().getPassword().equals(password));
+        if(userModel.isEmpty()){
+            return null;
+        }
+
+        return UserMapper.toDomain(userModel.get());
     }
 }

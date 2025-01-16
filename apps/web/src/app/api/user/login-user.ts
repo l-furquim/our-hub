@@ -1,25 +1,25 @@
 "use server"
-import type { ApiErrorResponse, ApiResponse } from "@/app/@types/api-response-types";
+
+import type { ApiErrorResponse, LoginResponse } from "@/app/types/api-response-types";
 import { backEndApi } from "@/lib/api";
+import { createSession } from "@/lib/session";
 import { AxiosError } from "axios";
-import { cookies } from "next/headers";
+
 
 export async function LoginUser(data: string){
   let apiResponse;
 
   try{  
     const response = await backEndApi.post("/user/login", data);
-    const { token } = response.data;
+    const { session, token } = response.data as LoginResponse;
 
 
     console.log(token);
 
     if(response.status == 200){
-      const cookie = await cookies();
+      await createSession(token, session);
 
-      cookie.set("ourhub-auth", token);
-
-       apiResponse = { sucessMessage: true };
+      apiResponse = { sucessMessage: true };
     };
     
   }catch(e){

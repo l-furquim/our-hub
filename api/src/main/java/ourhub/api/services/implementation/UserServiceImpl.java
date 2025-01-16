@@ -2,6 +2,7 @@ package ourhub.api.services.implementation;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ourhub.api.controllers.user.dtos.LoginUserResponse;
 import ourhub.api.domains.entities.User;
 import ourhub.api.domains.exceptions.user.InvalidAuthException;
 import ourhub.api.domains.exceptions.user.UserAlredyExistsException;
@@ -70,13 +71,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(String email, String password) {
-        final var sucess = this.userGateway.login(email, password);
+    public LoginUserResponse login(String email, String password) {
+        final var user = this.userGateway.login(email, password);
 
-        if(sucess){
+        if(user != null){
             final var AuthService = new AuthServiceImpl(this.userGateway);
 
-            return AuthService.createToken(email);
+            final var token =  AuthService.createToken(email);
+
+            return new LoginUserResponse(user, token);
         }else{
             throw new InvalidAuthException("Email or password are wrong");
         }

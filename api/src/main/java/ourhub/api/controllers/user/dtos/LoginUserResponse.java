@@ -1,4 +1,6 @@
 package ourhub.api.controllers.user.dtos;
 
-public record LoginUserResponse (String token){
+import ourhub.api.domains.entities.User;
+
+public record LoginUserResponse (User session, String token){
 }

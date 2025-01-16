@@ -33,12 +33,12 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginUserResponse> loginUser(@RequestBody LoginUserRequest request){
-        final var token = this.userService.login(
+        final var session = this.userService.login(
                 request.email(),
                 request.password()
         );
 
-        return ResponseEntity.ok().body(new LoginUserResponse(token ));
+        return ResponseEntity.ok().body(session);
     }
 
     @PostMapping("/validateToken")
