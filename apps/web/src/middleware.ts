@@ -15,7 +15,8 @@ export default async function middleware(request: NextRequest){
 }
 
 export const config = {
-  matcher: ["/home/", "/home/:path*", "/profile/:path*"],
+  // "/home/", "/home/:path*"
+  matcher: ["/profile/:path*"]
 }
 
 type apiValidateTokenResponseType = {
