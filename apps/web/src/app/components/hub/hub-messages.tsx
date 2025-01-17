@@ -8,7 +8,7 @@ import type { Message, MessageComponent } from "@/app/types/message-types";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import type { Hub } from "@/app/types/hub-types";
 
 const NewMessageFormSchema = z.object({
   content: z.string().min(1)
@@ -16,7 +16,12 @@ const NewMessageFormSchema = z.object({
 
 export type NewMessageFormType = z.infer<typeof NewMessageFormSchema>;
 
-export const HubMessages = () => {
+type HubMessagesProps = {
+  hubMessages: Message[],
+  hubInfo: Hub
+};
+
+export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo }) => {
   const {handleSubmit, register,setValue} = useForm<NewMessageFormType>({
         resolver: zodResolver(NewMessageFormSchema),
         defaultValues: {
@@ -24,21 +29,20 @@ export const HubMessages = () => {
         },
     });
 
-
   const [messages, setMessages] = useState<MessageComponent[]>([{
     id: 12,
     content: <div className="w-full break-all bg-zinc-200 flex justify-start p-2 rounded-md text-zinc-950" >Ola</div>,
     sendedAt: new Date()
   }]);
 
-  const handleNewMessage = (data: NewMessageFormType) => {
-    
-
+  const handleNewMessage = (data: NewMessageFormType) => {  
     setMessages(currentMessages => [...currentMessages, {
       content: <div className="w-full break-all bg-zinc-200 flex justify-start p-2 rounded-md text-zinc-950" >{data.content}</div>,
       id: 12,
       sendedAt: new Date()
     }]);
+
+
   }
 
   return (
