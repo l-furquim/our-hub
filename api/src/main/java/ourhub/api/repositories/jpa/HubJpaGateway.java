@@ -1,10 +1,11 @@
 package ourhub.api.repositories.jpa;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ourhub.api.domains.entities.Hub;
+import ourhub.api.domains.entities.User;
 import ourhub.api.domains.gateway.HubGateway;
 import ourhub.api.repositories.jpa.mappers.HubMapper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +13,22 @@ import java.util.List;
 public class HubJpaGateway implements HubGateway {
 
     private final HubJpaRepository repository;
+    private final UserJpaRepository userRepository;
 
-    public HubJpaGateway(final HubJpaRepository hubJpaRepository){
+    public HubJpaGateway(final HubJpaRepository hubJpaRepository, UserJpaRepository userJpaRepository){
         this.repository = hubJpaRepository;
+        this.userRepository = userJpaRepository;
     }
 
+
+    @Transactional
     @Override
-    public void create(Hub hub) {
+    public void create(Hub hub, String userId) {
         final var hubModel = HubMapper.toModel(hub);
+        final var userModel = this.userRepository.findById(userId).get();
+
+        hubModel.addUser(userModel);
+        userModel.addHub(hubModel);
 
         this.repository.save(hubModel);
     }

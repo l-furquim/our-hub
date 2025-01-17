@@ -19,3 +19,11 @@ CREATE TABLE message (
     user_id VARCHAR(200) NOT NULL,
     hub_id VARCHAR(200) NOT NULL
 );
+
+CREATE TABLE user_hub (
+    user_id VARCHAR(200),
+    hub_id VARCHAR(200),
+    PRIMARY KEY (user_id, hub_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (hub_id) REFERENCES hub(id) ON DELETE CASCADE
+);

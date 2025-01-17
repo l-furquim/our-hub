@@ -26,11 +26,4 @@ public class HubController {
 
         return ResponseEntity.ok().body(new NewHubResponse(hub));
     }
-
-    @GetMapping("/find/user/{userId}")
-    public ResponseEntity<UserHubsResponse> userHubs(@PathVariable("userId") String userId){
-        final var hubs = service.getByUserId(userId);
-
-        return ResponseEntity.ok().body(new UserHubsResponse(hubs));
-    }
 }

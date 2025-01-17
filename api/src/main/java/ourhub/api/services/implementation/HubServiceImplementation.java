@@ -1,10 +1,12 @@
 package ourhub.api.services.implementation;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ourhub.api.domains.entities.Hub;
 import ourhub.api.domains.exceptions.hub.HubNotFoundException;
 import ourhub.api.domains.exceptions.hub.InvalidDataForNewHubException;
 import ourhub.api.domains.gateway.HubGateway;
+import ourhub.api.domains.gateway.UserGateway;
 import ourhub.api.services.HubService;
 
 import java.util.List;
@@ -49,7 +51,7 @@ public class HubServiceImplementation implements HubService {
                 userId
         );
 
-        this.hubGateway.create(hub);
+        this.hubGateway.create(hub,userId);
 
         return hub;
     }

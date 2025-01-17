@@ -2,10 +2,7 @@ package ourhub.api.controllers.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ourhub.api.controllers.user.dtos.*;
 import ourhub.api.services.UserService;
 
@@ -46,5 +43,12 @@ public class UserController {
         final var isValid = this.userService.validateToken(request.token());
 
         return ResponseEntity.ok().body(new ValidateTokenResponse(isValid));
+    }
+
+    @GetMapping("/find/hub/{userId}")
+    public ResponseEntity<GetUserHubsResponse> getHubs(@PathVariable("userId") String userId){
+        final var hubs = this.userService.findUserHubs(userId);
+
+        return ResponseEntity.ok().body(new GetUserHubsResponse(hubs));
     }
 }

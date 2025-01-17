@@ -24,6 +24,7 @@ public class MessageJpaModel {
 
         @Column(name = "user_id")
         private String userId;
+        
 
         public MessageJpaModel(){
 

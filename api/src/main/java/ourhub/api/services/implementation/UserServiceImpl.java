@@ -3,14 +3,19 @@ package ourhub.api.services.implementation;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ourhub.api.controllers.user.dtos.LoginUserResponse;
+import ourhub.api.domains.entities.Hub;
 import ourhub.api.domains.entities.User;
+import ourhub.api.domains.exceptions.hub.HubNotFoundException;
 import ourhub.api.domains.exceptions.user.InvalidAuthException;
 import ourhub.api.domains.exceptions.user.UserAlredyExistsException;
 import ourhub.api.domains.exceptions.user.UserNotFoundException;
 import ourhub.api.domains.gateway.UserGateway;
+import ourhub.api.repositories.jpa.mappers.UserMapper;
 import ourhub.api.services.UserService;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -94,5 +99,16 @@ public class UserServiceImpl implements UserService {
         final var AuthService = new AuthServiceImpl(this.userGateway);
 
         return AuthService.isTokenValid(token);
+    }
+
+    @Override
+    public List<Hub> findUserHubs(String userId) {
+        final var hubs = this.userGateway.findUserHubs(userId);
+
+        if(hubs == null) {
+            return new ArrayList<Hub>();
+        }
+
+        return hubs;
     }
 }

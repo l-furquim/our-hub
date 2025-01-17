@@ -1,9 +1,13 @@
 package ourhub.api.repositories.jpa;
 
 import org.springframework.stereotype.Component;
+import ourhub.api.domains.entities.Hub;
 import ourhub.api.domains.entities.User;
 import ourhub.api.domains.gateway.UserGateway;
+import ourhub.api.repositories.jpa.mappers.HubMapper;
 import ourhub.api.repositories.jpa.mappers.UserMapper;
+
+import java.util.List;
 
 @Component
 public class UserJpaGateway implements UserGateway {
@@ -52,5 +56,17 @@ public class UserJpaGateway implements UserGateway {
         }
 
         return UserMapper.toDomain(userModel.get());
+    }
+
+    @Override
+    public List<Hub> findUserHubs(String userId) {
+        final var hubs = this.repository.findById(userId).get().getHubs().stream().map(
+                HubMapper::toDomain
+        ).toList();
+
+        if(hubs == null){
+            return null;
+        }
+        return hubs;
     }
 }

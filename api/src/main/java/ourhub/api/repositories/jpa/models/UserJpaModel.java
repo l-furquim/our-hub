@@ -1,11 +1,9 @@
 package ourhub.api.repositories.jpa.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity(name = "users")
 @Table(name = "users")
@@ -27,16 +25,20 @@ public class UserJpaModel {
     @Column(name = "created_at")
     private Instant createdAt;
 
+    @ManyToMany(mappedBy = "users")
+    public List<HubJpaModel> hubs;
+
     public UserJpaModel(){
 
     }
 
-    public UserJpaModel(String id, String email, String name, String password, Instant createdAt) {
+    public UserJpaModel(String id, String email, String name, String password, Instant createdAt, List<HubJpaModel> hubs) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.createdAt = createdAt;
+        this.hubs = hubs;
     }
 
     public String getId() {
@@ -77,5 +79,20 @@ public class UserJpaModel {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<HubJpaModel> getHubs() {
+        return hubs;
+    }
+
+    public void addHub(HubJpaModel hub) {
+        this.hubs.add(hub);
+    }
+
+    public void enterHub(HubJpaModel hub){
+            if (!hubs.contains(hub)) {
+                hubs.add(hub);
+                hub.addUser(this);
+            }
     }
 }
