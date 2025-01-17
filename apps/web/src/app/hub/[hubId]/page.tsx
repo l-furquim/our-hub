@@ -13,11 +13,11 @@ export default async function HubPage({
   console.log("NOMEOEM")
 
   return (
-    <div className="w-full min-h-[100vh] flex">
+    <div className="w-full min-h-[120vh] flex">
       <SideBar name={name} id={id} />
-      <div className="w-full h-full items-center flex flex-col gap-5">
+      <div className="w-full min-h-max items-center flex flex-col gap-5">
         <TopBar name={name} id={id} />
-        <div className="w-[92%] h-full mt-3">
+        <div className="w-[92%] min-h-max mt-3">
           <HubMessages/>
         </div>
       </div>

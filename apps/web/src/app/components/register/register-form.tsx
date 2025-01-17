@@ -11,7 +11,7 @@ import { z } from "zod"
 const RegisterFormSchema = z.object({
   email: z.string().email(),
   name: z.string().min(3, {message: "Seu nickname deve conter pelo menos 5 caracteres"}),
-  password: z.string().min(3, {message: "Sua senha deve conter pelo menos 5 caracteres"}),
+  password: z.string().min(5, {message: "Sua senha deve conter pelo menos 5 caracteres"}),
 });
 
 export type RegisterFormType = z.infer<typeof RegisterFormSchema>;

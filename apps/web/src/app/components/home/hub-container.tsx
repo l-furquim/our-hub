@@ -10,7 +10,7 @@ type HubContainerProps = {
 }
 
 
-const hubs = [
+/* const hubs = [
   {
     name: "Hub dos amigos",
     image: "http://github.com/l-furquim.png",
@@ -26,9 +26,9 @@ const hubs = [
     image: "http://github.com/l-furquim.png",
     id: "10298",
   },
-]
+] */
 
-export const HubContainer: React.FC = () => {
+export const HubContainer: React.FC<HubContainerProps> = ({hubs}) => {
   
 
   if(!hubs){
@@ -39,7 +39,7 @@ export const HubContainer: React.FC = () => {
   }
 
   return (
-      <>
+    <li className="list-none flex flex-col gap-6">
         {hubs.map((hub) => (
        <ul key={hub.id} className="list-none">
         <div className="w-full">
@@ -50,7 +50,7 @@ export const HubContainer: React.FC = () => {
           </div>
       </ul>
     ))}
-      </>
+    </li>
   )
 
   
