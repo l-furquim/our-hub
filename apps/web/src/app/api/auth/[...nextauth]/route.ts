@@ -2,6 +2,8 @@ import type { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google"
+import { cookies } from "next/headers";
+import { RegisterUser } from "../../user/register-user";
 
   export const authOptions: NextAuthOptions = {
       providers: [
@@ -14,7 +16,8 @@ import GoogleProvider from "next-auth/providers/google"
                     name: profile.name,
                     email: profile.email,
                     image: profile.avatar_url,
-                    login: profile.login
+                    login: profile.login,
+                    token: "",
             }
           },
         }),
@@ -28,7 +31,7 @@ import GoogleProvider from "next-auth/providers/google"
                     email: profile.email,
                     image: profile.picture,
                     token: "",
-                    login: profile.login
+                    login: profile.login,
             }
           },
         })
@@ -40,11 +43,19 @@ import GoogleProvider from "next-auth/providers/google"
         async signIn({ user, account, profile}){
           if(!user) return false;
 
+          await RegisterUser(
+            JSON.stringify({
+              email: user.email,
+              name: user.name,
+              password: "no password"
+            })
+          );
           return true;
         },
-        jwt({ token, profile }) {       
-          
-          
+        async jwt({ token, profile }) {       
+          // Rever isso aqui 
+          // const cookie = await cookies();
+
           return token;
       },
       session({ session, token }) {
