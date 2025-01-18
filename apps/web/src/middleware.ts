@@ -1,8 +1,9 @@
+import { getToken } from "next-auth/jwt";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
 export default async function middleware(request: NextRequest){
-  const authToken = request.cookies.get("ourhub-auth")?.value;
+  /* const authToken = request.cookies.get("ourhub-auth")?.value;
 
   console.log(authToken)
 
@@ -13,15 +14,25 @@ export default async function middleware(request: NextRequest){
       return NextResponse.next();
     }
   }
-  return NextResponse.redirect(new URL("/login", request.url));
+  return NextResponse.redirect(new URL("/login", request.url)); */
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  if (!token || !token.login) {
+      return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
   // "/home/", "/home/:path*"
-  matcher: ["/profile/:path*"]
+  matcher: ["/profile/:path*", "/home/:path*"]
 }
 
-type apiValidateTokenResponseType = {
+/* type apiValidateTokenResponseType = {
   is_Valid : boolean
 };
 
@@ -51,4 +62,4 @@ async function validateToken(token: string){
   }
 
   return isValid;
-}
+} */

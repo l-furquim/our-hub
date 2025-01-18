@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation";
 import { getToken } from "next-auth/jwt";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import type { NextRequest } from "next/server";
 
 
 export async function createSession(token: string, session: User){
@@ -29,9 +30,11 @@ export async function getSession(){
   };
 }
 
-export async function GetUserSession(){
-const session = await getServerSession(authOptions);
+export async function getUserSession(){
+  const session = await getServerSession(authOptions);
   const user = session?.user;
+  console.log(user.id);
+  console.log(user);
 
   if (user === null || user === undefined) {
     redirect("/error");

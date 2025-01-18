@@ -8,5 +8,5 @@ export type User = {
 
 export type UserAuth = {
   id: string | undefined,
-  name: string | undefined
+  name: string | undefined,
 }
