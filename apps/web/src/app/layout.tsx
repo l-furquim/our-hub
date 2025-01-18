@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import NextAuthProvider from "@/providers/nextauth-provider";
 
 export const metadata: Metadata = {
   title: "Ourhub",
@@ -16,7 +17,9 @@ export default function RootLayout({
       <body
         className={`antialiased bg-zinc-950 text-zinc-200`}
       >
-        {children}
+        <NextAuthProvider>
+          {children}
+        </NextAuthProvider>
       </body>
     </html>
   );

@@ -5,6 +5,8 @@ import { GithubButton } from "./components/register/github-button";
 import { GoogleButton } from "./components/register/google-button";
 
 export default function Home() {
+  console.log("Alo")
+
   return (
     <div className="w-full h-[80vh] flex justify-center items-center">
       <div className="bg-zinc-900 w-[45%] rounded-md gap-5 border-cyan-900 border-[1px] border-opacity-70 h-[60%] flex flex-col">
