@@ -50,6 +50,13 @@ public class SecurityConfig {
 //                .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)
 //                .build();
         return http
+                .cors(cors -> cors.configurationSource(request ->{
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.addAllowedOrigin("http://localhost:3000");
+                    config.addAllowedMethod("*");
+                    config.addAllowedHeader("*");
+                    return config;
+                }))
                 .csrf(csrf -> csrf.disable())  // Desabilita CSRF
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Desabilita o gerenciamento de sessão
                 .authorizeHttpRequests(authorize -> authorize

@@ -8,11 +8,11 @@ export async function searchHubMessages(hubId: string){
     const token = cookie.get("ourhub-auth")?.value
   
     try{
-      const response = await backEndApi.get(`/message/find/hub/${hubId}/1/10`,{
+      const response = await backEndApi.get(`/message/find/hub/${hubId}/1/10`/* ,{
         headers: {
           "Authorization": `Bearer ${token}`,
         }
-      });
+      } */);
       const { messages } = response.data;
   
       return messages || [];

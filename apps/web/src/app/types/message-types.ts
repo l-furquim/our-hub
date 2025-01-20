@@ -1,11 +1,13 @@
 export type Message = {
   id: number,
   content: string,
-  sendedAt: Date
+  sendedAt: Date,
+  userId: string
 }
 
 export type MessageComponent = {
   id: number,
   content: React.ReactNode,
-  sendedAt: Date
+  sendedAt: Date,
+  userId: string
 }

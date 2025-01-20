@@ -18,14 +18,15 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> newUser(@RequestBody NewUserRequest request){
-        this.userService.create(
+    public ResponseEntity<LoginUserResponse> newUser(@RequestBody NewUserRequest request){
+        final var response = this.userService.create(
                 request.email(),
                 request.name(),
-                request.password()
+                request.password(),
+                request.id()
         );
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/login")

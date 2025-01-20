@@ -43,7 +43,7 @@ export const HubContainer: React.FC<HubContainerProps> = ({hubs}) => {
         {hubs.map((hub) => (
        <ul key={hub.id} className="list-none">
         <div className="w-full">
-            <Link className="w-full flex gap-2 justify-center items-center" href={`/hub/${hub.id}`}>
+            <Link className="w-full flex gap-2 justify-center items-center" href={`/hub/${hub.id}/${hub.name}`}>
               <img src={"http://github.com/l-furquim.png"} alt="Hub image" className="rounded-xl" width={32} height={32} />
               <p>{hub.name.length > 13 ? hub.name.slice(0, 13) + "..." : hub.name}</p>
             </Link>

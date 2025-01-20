@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void create(String email, String name, String password) {
+    public LoginUserResponse create(String email, String name, String password, String id) {
         final var userAlredyExists = this.userGateway.findByEmail(email);
 
         if(userAlredyExists != null){
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
 
         final var user = User.build(
-                UUID.randomUUID().toString(),
+                id,
                 email,
                 name,
                 password,
@@ -47,6 +47,13 @@ public class UserServiceImpl implements UserService {
         );
 
         this.userGateway.create(user);
+
+
+        final var AuthService = new AuthServiceImpl(this.userGateway);
+
+        final var token =  AuthService.createToken(email);
+
+        return new LoginUserResponse(token);
     }
 
     @Override
@@ -84,7 +91,7 @@ public class UserServiceImpl implements UserService {
 
             final var token =  AuthService.createToken(email);
 
-            return new LoginUserResponse(user, token);
+            return new LoginUserResponse(token);
         }else{
             throw new InvalidAuthException("Email or password are wrong");
         }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserService {
 
-    void create(String email, String name, String password);
+    LoginUserResponse create(String email, String name, String password, String id);
     User findById(String id);
     User findByEmail(String email);
     LoginUserResponse login(String email, String password);
