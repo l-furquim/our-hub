@@ -3,7 +3,6 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google"
 import { RegisterUser } from "../../user/register-user";
-import { cookies } from "next/headers";
 
   export const authOptions: NextAuthOptions = {
       providers: [
@@ -26,7 +25,7 @@ import { cookies } from "next/headers";
           if(!user) return false;
           console.log(account?.userId);
 
-          const response = await RegisterUser(
+          const err = await RegisterUser(
             JSON.stringify({
               email: user.email,
               name: user.name,
@@ -34,14 +33,7 @@ import { cookies } from "next/headers";
               id: user.id,
             })
           );
-
-          if(response?.data){
-            const cookie = await cookies();
-
-            cookie.set("ourhub-auth", response.data);
-          }
-
-          return true;
+          return !!err;
         },
 
       async jwt({ token,account, profile }) {                 

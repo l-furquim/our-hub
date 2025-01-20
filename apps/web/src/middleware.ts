@@ -15,12 +15,9 @@ export default async function middleware(request: NextRequest){
     }
   }
   return NextResponse.redirect(new URL("/login", request.url)); */
-    const token = await getToken({
-      req: request,
-      secret: process.env.NEXTAUTH_SECRET,
-  });
+  const token = (await cookies()).get("ourhub-auth");
 
-  if (!token || !token.login) {
+  if (!token) {
       return NextResponse.redirect(new URL("/", request.url));
   }
 
@@ -29,9 +26,9 @@ export default async function middleware(request: NextRequest){
 
 export const config = {
   // "/home/", "/home/:path*"
-  matcher: ["/profile/:path*", "/home/:path*"]
+  matcher: []
 }
-
+ 
 /* type apiValidateTokenResponseType = {
   is_Valid : boolean
 };

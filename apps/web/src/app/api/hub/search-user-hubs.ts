@@ -12,11 +12,11 @@ export async function SearchUserHubs(id: string | undefined){
   const token = cookie.get("ourhub-auth")?.value
 
   try{
-    const response = await backEndApi.get(`/user/find/hub/${id}`,{
+    const response = await backEndApi.get(`/user/find/hub/${id}`/* ,{
       headers: {
         "Authorization": `Bearer ${token}`,
       }
-    });
+    } */);
     const {hubs} = response.data;
 
     return hubs || [];
