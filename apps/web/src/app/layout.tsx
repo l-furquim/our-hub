@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased bg-zinc-950 text-zinc-200`}
+        className={`antialiased  bg-zinc-950 text-zinc-200`}
       >
         <NextAuthProvider>
           {children}

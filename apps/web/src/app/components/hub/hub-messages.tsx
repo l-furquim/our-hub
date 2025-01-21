@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { MessageContainer } from "./message-container";
 import { Send } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Message } from "@/app/types/message-types";
 import { z } from "zod";
 import { newMessage } from "@/app/actions/new-message";
@@ -28,7 +28,8 @@ type HubMessagesProps = {
 export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, userId, userName }) => {
 
     const [messages, setMessages] = useState(hubMessages);
-    
+    const ref = useRef<HTMLTextAreaElement>(null);
+
     useEffect(() => {
 
       client.onConnect = () => {
@@ -59,6 +60,7 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
 
   async function handleNewMessage(e: React.FormEvent){
     e.preventDefault();
+
     const data = new FormData(e.target as HTMLFormElement);
     
     data.set("user", userName);
@@ -81,26 +83,39 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
             headers: {} 
         });
       }
+      if(ref.current){
+        ref.current.value = "";
+      };
+      
       return;
     }
     return;
   }
 
   return (
-    <div className="border-[1px] w-full items-center border-muted-foreground rounded-md flex flex-col h-[102vh]">
-      <div className="flex rounded-md w-[50%] gap-5 mt-5 justify-center items-center">
+    <div className="w-full h-[102vh] flex flex-col border-[1px] border-muted-foreground rounded-md">
+
+      <div className="flex rounded-md w-full gap-5 mt-5 justify-center items-center">
         <img className="rounded-xl" width={32} height={32} src="http://github.com/l-furquim.png" alt="Hub icon" />
         <h1>{hubInfo.name}</h1>
       </div>
-        <div className="w-[90%] mt-10 flex flex-col gap-5 items-start">
-          <MessageContainer userId={userId} messages={messages} />
-        </div>
-        <form onSubmit={handleNewMessage} className="mt-10 h-full w-[50%] flex items-end mb-8  gap-2 ">
-          <textarea id="message" name="message" className="h-10 w-full p-2 resize-none  overflow-hidden text-base border-zinc-500 border-[1px] rounded-md focus:outline-none text-zinc-200 bg-transparent" placeholder="Digite" />
-          <Button type="submit">
-            <Send size={20} />
-          </Button>
-        </form>
+
+      <div className="flex-1 items-center overflow-hidden mt-10 w-full flex flex-col gap-5">
+        <MessageContainer userId={userId} messages={messages} />
+      </div>
+
+      <form onSubmit={handleNewMessage} className="flex items-end gap-2 p-4">
+        <textarea
+          id="message"
+          name="message"
+          className="h-10 w-full flex justify-center items-center p-2 resize-none overflow-hidden text-base border-zinc-500 border-[1px] rounded-md focus:outline-none text-zinc-200 bg-transparent"
+          placeholder="Digite"
+          ref={ref}
+        />
+        <Button type="submit" className="bg-cyan-900 hover:bg-cyan-950 text-zinc-200">
+          <Send size={20} />
+        </Button>
+      </form>
     </div>
-  )
+  );
 }
