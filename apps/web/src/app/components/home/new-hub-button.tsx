@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { newHub } from "@/app/actions/new-hub"
-import { useActionState, type FormEvent } from "react"
+import { useActionState } from "react"
 
 const initialState = {
   message: '',
