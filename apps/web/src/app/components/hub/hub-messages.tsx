@@ -32,9 +32,16 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
   
     useEffect(() => {
 
-    client.activate();
-    setStompClient(client);
+      client.onConnect = () => {
+        console.log("Conectado ao WebSocket!");
 
+        client.subscribe("/messages/livechat", (message) => {
+          const receivedMessage = JSON.parse(message.body);
+          setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+        });
+      };
+    
+      client.activate();
     return () => {
       if (client) {
         client.deactivate();
@@ -48,8 +55,23 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
     const data = new FormData(e.target as HTMLFormElement);
     
     data.set("user", userName)
-    if(stompClient){
-      await newMessage(data, stompClient);
+
+    if(client.connected){
+      const response = await newMessage(data);
+
+      if(response){
+        client.publish({
+          destination: "/ourhub/new-message",
+            body: JSON.stringify(
+              { 
+                user: data.get("user"),
+                message: data.get("message")
+             }
+            ), 
+            headers: {} 
+        });
+      }
+      return;
     }
     return;
   }
@@ -64,7 +86,7 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
           <MessageContainer userId={userId} messages={messages} />
         </div>
         <form onSubmit={handleNewMessage} className="mt-10 h-full w-[50%] flex items-end mb-8  gap-2 ">
-          <textarea id="message" className="h-10 w-full p-2 resize-none  overflow-hidden text-base border-zinc-500 border-[1px] rounded-md focus:outline-none text-zinc-200 bg-transparent" placeholder="Digite" />
+          <textarea id="message" name="message" className="h-10 w-full p-2 resize-none  overflow-hidden text-base border-zinc-500 border-[1px] rounded-md focus:outline-none text-zinc-200 bg-transparent" placeholder="Digite" />
           <Button type="submit">
             <Send size={20} />
           </Button>

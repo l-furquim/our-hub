@@ -12,21 +12,19 @@ type RegisterTokenResponse = {
 export async function RegisterUser(data: string){
   try{  
     const response = await backEndApi.post("/user/register", data);
-    console.log(response)
+    
+    const resData = response.data;
 
-    const d  = response.data;
-
-    console.log(d);
+    console.log(data);
 
     const cookie =  await cookies();
 
-    cookie.set("ourhub-auth",d.token);
+    cookie.set("ourhub-auth",resData.token);
     
   }catch(e){
     const axiosError = e as AxiosError;
+    console.log(axiosError.message);
 
-    const  errorMessage =  axiosError.response?.data as ApiErrorResponse;
-
-    return errorMessage;
+    throw axiosError;
   }
 }

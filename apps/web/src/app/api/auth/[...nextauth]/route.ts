@@ -25,15 +25,19 @@ import { RegisterUser } from "../../user/register-user";
           if(!user) return false;
           console.log(account?.userId);
 
-          const err = await RegisterUser(
-            JSON.stringify({
-              email: user.email,
-              name: user.name,
-              password: "no password",
-              id: user.id,
-            })
-          );
-          return !!err;
+          try{
+            await RegisterUser(
+              JSON.stringify({
+                email: user.email,
+                name: user.name,
+                password: "no password",
+                id: user.id,
+              })
+            );
+          }catch(err) {
+            return false;
+          }
+          return true;
         },
 
       async jwt({ token,account, profile }) {                 

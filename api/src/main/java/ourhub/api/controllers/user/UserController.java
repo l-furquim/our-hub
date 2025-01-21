@@ -19,6 +19,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<LoginUserResponse> newUser(@RequestBody NewUserRequest request){
+        System.out.println("To aqui33");
         final var response = this.userService.create(
                 request.email(),
                 request.name(),

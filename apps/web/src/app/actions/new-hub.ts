@@ -6,23 +6,23 @@ import { getUserSession } from "@/lib/session";
 import { z } from 'zod'
  
 const schema = z.object({
-  name: z.string().max(12, {
-    message: "Limite máximo para nomes são 12 caracteres"
+  name: z.string().max(22, {
+    message: "Limite máximo para nomes são 22 caracteres"
   }),
 })
 
 
 export async function newHub(prevState: any, formData: FormData){
 
-  console.log(formData)
+  console.log(formData.get("name"));
 
   const validatedFields = schema.safeParse({
     name: formData.get('name'),
   });
 
-  if (!validatedFields.success) {
+  if (!validatedFields.success) {    
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      message: validatedFields.error.flatten().fieldErrors.name?.at(0),
     }
   }
 

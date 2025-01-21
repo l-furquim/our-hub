@@ -23,23 +23,23 @@ public class SecurityFilter extends OncePerRequestFilter {
                                     HttpServletResponse httpServletResponse,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-//        final var authToken = request.getHeader("Authorization");
-//
-//        if (authToken != null) {
-//            final var aToken = authToken.replace("Bearer ", "");
-//
-//            final var userName = authService.validateToken(aToken);
-//
-//            var user = authService.loadUserByUsername(userName);
-//
-//            final var auth = new UsernamePasswordAuthenticationToken(
-//                    user,
-//                    null,
-//                    user.getAuthorities()
-//            );
-//
-//            SecurityContextHolder.getContext().setAuthentication(auth);
-//        }
-//        filterChain.doFilter(request, httpServletResponse);
+        final var authToken = request.getHeader("Authorization");
+
+        if (authToken != null) {
+            final var aToken = authToken.replace("Bearer ", "");
+
+            final var userName = authService.validateToken(aToken);
+
+            var user = authService.loadUserByUsername(userName);
+
+            final var auth = new UsernamePasswordAuthenticationToken(
+                    user,
+                    null,
+                    user.getAuthorities()
+            );
+
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+        filterChain.doFilter(request, httpServletResponse);
     }
 }

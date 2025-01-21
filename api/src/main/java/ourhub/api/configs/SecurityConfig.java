@@ -50,13 +50,22 @@ public class SecurityConfig {
 //                .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)
 //                .build();
         return http
-                .cors(cors -> cors.configurationSource(request ->{
+                .cors(cors ->{
                     CorsConfiguration config = new CorsConfiguration();
                     config.addAllowedOrigin("http://localhost:3000");
                     config.addAllowedMethod("*");
                     config.addAllowedHeader("*");
-                    return config;
-                }))
+                    config.setAllowCredentials(false);
+
+                    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+                    source.registerCorsConfiguration("/**", config);
+                    CorsFilter corsFilter = new CorsFilter(source);
+
+                    http.addFilterBefore(corsFilter, CorsFilter.class);
+
+
+                })
                 .csrf(csrf -> csrf.disable())  // Desabilita CSRF
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Desabilita o gerenciamento de sessão
                 .authorizeHttpRequests(authorize -> authorize

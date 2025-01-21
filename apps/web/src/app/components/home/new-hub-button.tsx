@@ -21,7 +21,7 @@ export const NewHubButton = () => {
   const [state, formAction, isPending ] = useActionState(newHub, initialState);
 
   return (
-      <Dialog>
+      <Dialog>       
       <DialogTrigger asChild>
         <Button onClick={() => console.log("novo hub")} className="bg-cyan-900 w-40 hover:bg-cyan-950 flex justify-center">
           Novo hub

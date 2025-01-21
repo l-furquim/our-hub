@@ -31,13 +31,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginUserResponse create(String email, String name, String password, String id) {
+        final var AuthService = new AuthServiceImpl(this.userGateway);
+
         final var userAlredyExists = this.userGateway.findByEmail(email);
 
         if(userAlredyExists != null){
-            throw new UserAlredyExistsException("A user alredy exists with this email");
+            return new LoginUserResponse(AuthService.createToken(userAlredyExists.getEmail()));
         }
-
-
         final var user = User.build(
                 id,
                 email,
@@ -47,9 +47,6 @@ public class UserServiceImpl implements UserService {
         );
 
         this.userGateway.create(user);
-
-
-        final var AuthService = new AuthServiceImpl(this.userGateway);
 
         final var token =  AuthService.createToken(email);
 
