@@ -1,14 +1,11 @@
 "use server"
 
-
 import { z } from 'zod'
-import Stomp from "stompjs"
-import type { Client } from '@stomp/stompjs';
-import { backEndApi } from '@/lib/api';
  
 const schema = z.object({
   user: z.string().min(1),
   message: z.string().min(1),
+  userId: z.string().min(1),
 })
 
 export async function newMessage(data: FormData){
@@ -19,6 +16,7 @@ export async function newMessage(data: FormData){
   const validatedFields = schema.safeParse({
     user: data.get("user"),
     message: data.get('message'),
+    userId: data.get("userId"),
   });
 
   if (!validatedFields.success) {

@@ -28,10 +28,10 @@ public class MessageController {
     @MessageMapping("/new-message")
     @SendTo("/messages/livechat")
     public NewMessageResponse hello(@RequestBody NewMessageRequest request){
-        this.messageService.create(request.message(), Instant.now(), "bfcaaf8c-1827-4f45-aeac-6c6baccd0b8f", "3c19bbb7-0ccd-4d94-9635-bcf6ecd0da74");
+        final var message = this.messageService.create(request.message(), Instant.now(), request.hubId(),request.userId(), request.userName());
 
         return new NewMessageResponse(
-                HtmlUtils.htmlEscape(request.user() + ": " + request.message())
+                request.userName(),request.message(), message.getId()
         );
     }
 

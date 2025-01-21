@@ -23,10 +23,12 @@ public class MessageJpaGateway implements MessageGateway {
     }
 
     @Override
-    public void create(Message message) {
+    public Message create(Message message) {
         final var messageModel = MessageMapper.toModel(message);
 
         this.repository.save(messageModel);
+
+        return MessageMapper.toDomain(messageModel);
     }
 
     @Override

@@ -10,7 +10,8 @@ public class MessageMapper {
                 model.getContent(),
                 model.getSendedAt(),
                 model.getHubId(),
-                model.getUserId()
+                model.getUserId(),
+                model.getUserName()
         );
         messageDomain.setId(model.getId());
         return messageDomain;
@@ -21,7 +22,8 @@ public class MessageMapper {
                 message.getContent(),
                 message.getSendedAt(),
                 message.getHubId(),
-                message.getUserId()
+                message.getUserId(),
+                message.getUserName()
         );
     }
 }

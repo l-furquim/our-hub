@@ -8,21 +8,23 @@ public class Message {
     private Instant sendedAt;
     private String hubId;
     private String userId;
+    private String userName;
 
-    private Message(final String content, final Instant sendedAt, final String hubId, final String userId){
+    private Message(String content, Instant sendedAt, String hubId, String userId, String userName) {
         this.content = content;
         this.sendedAt = sendedAt;
         this.hubId = hubId;
         this.userId = userId;
-        this.validate();
+        this.userName = userName;
     }
 
-    public static Message build(final String content, final Instant sendedAt, final String hubId, final String userId){
+    public static Message build(final String content, final Instant sendedAt, final String hubId, final String userId, String userName){
         return new Message(
                 content,
                 sendedAt,
                 hubId,
-                userId
+                userId,
+                userName
         );
     }
 
@@ -70,5 +72,13 @@ public class Message {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

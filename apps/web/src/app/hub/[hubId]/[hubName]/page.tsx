@@ -21,7 +21,8 @@ export default async function HubPage({
         <TopBar image={image} name={name} id={id} />
         <div className="w-[92%] min-h-max mt-3">
           <HubMessages userName={name} userId={id} hubInfo={{
-            name: hubName
+            name: hubName,
+            id: hubId
           }} hubMessages={messages} />
         </div>
       </div>

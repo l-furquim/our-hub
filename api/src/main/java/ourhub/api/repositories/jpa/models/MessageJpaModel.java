@@ -24,21 +24,24 @@ public class MessageJpaModel {
 
         @Column(name = "user_id")
         private String userId;
+
+        @Column(name = "user_name")
+        private String userName;
         
 
         public MessageJpaModel(){
 
         }
 
-        public MessageJpaModel(final String content, final Instant sendedAt, final String hubId, final String userId){
+        public MessageJpaModel(String content, Instant sendedAt, String hubId, String userId, String userName) {
             this.content = content;
             this.sendedAt = sendedAt;
             this.hubId = hubId;
             this.userId = userId;
+            this.userName = userName;
         }
 
-
-        public String getContent() {
+    public String getContent() {
             return content;
         }
 
@@ -77,4 +80,13 @@ public class MessageJpaModel {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }
+

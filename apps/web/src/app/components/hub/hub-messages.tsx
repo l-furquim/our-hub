@@ -8,7 +8,6 @@ import type { Message } from "@/app/types/message-types";
 import { z } from "zod";
 import { newMessage } from "@/app/actions/new-message";
 import { client } from "@/lib/socket";
-import type { Client } from "@stomp/stompjs";
 
 const NewMessageFormSchema = z.object({
   content: z.string().min(1)
@@ -19,7 +18,8 @@ export type NewMessageFormType = z.infer<typeof NewMessageFormSchema>;
 type HubMessagesProps = {
   hubMessages: Message[],
   hubInfo: {
-    name: string
+    name: string,
+    id: string
   },
   userId: string,
   userName: string
@@ -28,8 +28,7 @@ type HubMessagesProps = {
 export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, userId, userName }) => {
 
     const [messages, setMessages] = useState(hubMessages);
-    const [stompClient, setStompClient] = useState<Client | null>(null);
-  
+    
     useEffect(() => {
 
       client.onConnect = () => {
@@ -37,7 +36,15 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
 
         client.subscribe("/messages/livechat", (message) => {
           const receivedMessage = JSON.parse(message.body);
-          setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+          console.log("Conteudo recebido ", receivedMessage );
+
+          setMessages((prevMessages) => [...prevMessages, {
+            id: receivedMessage.messageId,
+            content: receivedMessage.content,
+            sendedAt: new Date(),
+            userId: userId,
+            userName: receivedMessage.user,
+          }]);
         });
       };
     
@@ -54,7 +61,8 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
     e.preventDefault();
     const data = new FormData(e.target as HTMLFormElement);
     
-    data.set("user", userName)
+    data.set("user", userName);
+    data.set("userId", userId);
 
     if(client.connected){
       const response = await newMessage(data);
@@ -63,9 +71,11 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
         client.publish({
           destination: "/ourhub/new-message",
             body: JSON.stringify(
-              { 
-                user: data.get("user"),
-                message: data.get("message")
+              {
+                userId: data.get("userId"),
+                userName: data.get("user"),
+                message: data.get("message"),
+                hubId: hubInfo.id,
              }
             ), 
             headers: {} 

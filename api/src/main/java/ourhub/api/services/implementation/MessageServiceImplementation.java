@@ -34,12 +34,11 @@ public class MessageServiceImplementation implements MessageService {
     }
 
     @Override
-    public Message create(String content, Instant sendedAt, final String hubId, final String userId) {
-        final var message = Message.build(content, sendedAt, hubId, userId);
+    public Message create(String content, Instant sendedAt, final String hubId, final String userId, final String userName) {
+        final var message = Message.build(content, sendedAt, hubId, userId, userName);
 
-        this.MessageGateway.create(message);
 
-        return message;
+        return this.MessageGateway.create(message);
     }
 
     @Override
