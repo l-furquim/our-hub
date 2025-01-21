@@ -35,12 +35,12 @@ export async function searchFeatureHubs(){
 
 
   try{
-    const response = await backEndApi.get(`/user/find/hub/${id}`/* ,{
+    const response = await backEndApi.get(`/hub/find/featured`/* ,{
       headers: {
         "Authorization": `Bearer ${token}`,
       }
     } */);
-    const {hubs} = response.data;
+    const { hubs } = response.data;
 
     return hubs || [];
 

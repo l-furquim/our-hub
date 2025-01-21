@@ -19,7 +19,7 @@ export const SideBar: React.FC<UserAuth> = async ({name, id}) => {
       <hr className="h-[1px] border-cyan-900 w-[50%]" />
       <NewHubButton/>
         <Suspense fallback={<p>Carregando...</p>}>
-          <HubContainer hubs={hubs} />  
+          <HubContainer hubs={hubs} /> 
         </Suspense>   
     </div>
   )
