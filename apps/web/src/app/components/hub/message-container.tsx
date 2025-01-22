@@ -1,6 +1,8 @@
 import type { Message } from "@/app/types/message-types"
+import { Button } from "@/components/ui/button"
 import { convertToISODate } from "@/lib/utils"
 import { ScrollArea } from "@radix-ui/react-scroll-area"
+import { DoorOpen } from "lucide-react"
 import type React from "react"
 
 type MessageContainer = {
@@ -9,8 +11,6 @@ type MessageContainer = {
 }
 
 export const MessageContainer: React.FC<MessageContainer> = ({messages, userId}) => {
-  console.log("Id do usuario atual " + userId);
-
   if(!messages){
     return;
   }
@@ -25,7 +25,9 @@ export const MessageContainer: React.FC<MessageContainer> = ({messages, userId})
           key={message.id} // Ensure each <li> has a unique key
           className={`w-full flex flex-col ${userId === message.userId ? "items-end" : "items-start"}`}
         >
-          <p className="text-sm text-zinc-200 text-muted-foreground">{message.userName}</p>
+          <p className="text-smtext-zinc-200 text-muted-foreground">
+            {message.userName}
+          </p>
           <div
             className={`w-[40%] break-all flex-col flex justify-start p-2 rounded-md ${
               userId === message.userId ? "bg-zinc-200 text-zinc-950" : "bg-zinc-800 text-zinc-200"

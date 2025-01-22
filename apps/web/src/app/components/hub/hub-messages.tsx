@@ -2,12 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { MessageContainer } from "./message-container";
-import { Send } from "lucide-react";
+import { DoorOpen, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { Message } from "@/app/types/message-types";
 import { z } from "zod";
 import { newMessage } from "@/app/actions/new-message";
 import { client } from "@/lib/socket";
+import { LeaveHub } from "./leave-hub";
+
 
 const NewMessageFormSchema = z.object({
   content: z.string().min(1)
@@ -99,7 +101,10 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
 
       <div className="flex rounded-md w-full gap-5 mt-5 justify-center items-center">
         <img className="rounded-xl" width={32} height={32} src="http://github.com/l-furquim.png" alt="Hub icon" />
-        <h1>{hubInfo.name.replaceAll("%20", " ")}</h1>
+        <h1 className="flex gap-2 items-center">
+          {hubInfo.name.replaceAll("%20", " ")}
+          <LeaveHub hubId={hubInfo.id} userId={userId} />
+        </h1>
       </div>
 
       <div className="flex-1 items-center overflow-hidden mt-10 w-full flex flex-col gap-5">

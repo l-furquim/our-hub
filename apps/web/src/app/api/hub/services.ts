@@ -74,3 +74,24 @@ export async function enterHub(hubId: string){
     throw new AxiosError(axiosError.message);
   }
 }
+
+export async function leaveHub(hubId: string, userId: string){
+  const cookie = await cookies();
+
+  console.log(hubId, userId);
+
+  const token = cookie.get("ourhub-auth")?.value;
+
+
+  try{
+    await backEndApi.delete(`/hub/leave/${hubId}/${userId}`/* ,{
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
+    } */);
+  }catch(err){
+    const axiosError = err as AxiosError;
+    
+    throw new AxiosError(axiosError.message);
+  }
+}

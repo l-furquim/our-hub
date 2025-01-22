@@ -15,7 +15,7 @@ export default async function HomePage(){
         <SideBar name={name} id={id} />
         <div className="flex flex-col w-full h-full gap-20 justify-start  items-center">
           <TopBar image={image} name={name} id={id} />
-          <p className="w-[40%] items-center text-3xl mt-20 text-muted-foreground flex gap-5  font-medium">
+          <p className="w-[40%]  justify-start items-center text-3xl mt-20 text-muted-foreground flex gap-2  font-medium">
             Selecione o hub que deseja conversar
             <MessageCircleMore size={40}/>
           </p>
