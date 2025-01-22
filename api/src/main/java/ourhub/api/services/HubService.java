@@ -11,4 +11,5 @@ public interface HubService {
     List<Hub> getByUserId(String id);
     List<FeaturedHubDto> findFeatured(String userId);
     void enterHub(String userId,String hubId);
+    void leaveHub(String userId, String hubId);
 }

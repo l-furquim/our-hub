@@ -81,4 +81,13 @@ public class HubServiceImplementation implements HubService {
 
         this.hubGateway.enterHub(userId, hubId);
     }
+
+    @Override
+    public void leaveHub(String userId, String hubId) {
+        if(userId.isBlank() || hubId.isBlank()){
+            throw  new HubNotFoundException("Cannot delete a hub with user or hub id blank");
+        }
+
+        this.hubGateway.leaveHub(userId, hubId);
+    }
 }

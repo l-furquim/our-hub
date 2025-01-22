@@ -13,4 +13,8 @@ public interface UserHubJpaRepository extends JpaRepository<HubJpaModel, String>
     @Modifying
     @Query(value = "INSERT INTO user_hub (hub_id, user_id) VALUES (:hubId, :userId)", nativeQuery = true)
     void insertIntoUserHUb(@Param("userId") String userId, @Param("hubId") String hubId);
+
+    @Modifying
+    @Query(value = "DELETE FROM user_hub WHERE hub_id = :hubId AND user_id = :userId", nativeQuery = true)
+    void leaveHub(@Param("userId") String userId,@Param("hubId") String hubId);
 }

@@ -14,4 +14,5 @@ public interface HubGateway {
     List<Hub> findByUserId(String id);
     List<FeaturedHubDto> findTheMostUsers(String userId);
     void enterHub(String userId, String hubId);
+    void leaveHub(String userId, String hubId);
 }

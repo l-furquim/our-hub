@@ -41,4 +41,11 @@ public class HubController {
 
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/leave/{hubId}/{userId}")
+    public ResponseEntity<Void> leaveHub(@PathVariable("userId") String userId, @PathVariable("hubId")String hubId){
+        this.service.leaveHub(userId, hubId);
+
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -87,4 +87,10 @@ public class HubJpaGateway implements HubGateway {
     public void enterHub(String userId, String hubId) {
         this.userHubRepository.insertIntoUserHUb(userId, hubId);
     }
+
+    @Transactional
+    @Override
+    public void leaveHub(String userId, String hubId) {
+        this.userHubRepository.leaveHub(userId,hubId);
+    }
 }
