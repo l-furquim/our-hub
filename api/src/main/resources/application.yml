@@ -2,7 +2,7 @@ spring:
   application:
     name: api
   datasource:
-    url: jdbc:postgresql:ourhub-db-instantace.cxoi2460emxp.us-east-2.rds.amazonaws.com:5432/ourhub
+    url: jdbc:postgresql://ourhub-db-instantace.cxoi2460emxp.us-east-2.rds.amazonaws.com:5432/ourhub
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
