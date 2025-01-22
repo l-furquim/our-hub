@@ -1,6 +1,7 @@
 "use server"
 
 import { backEndApi } from "@/lib/api";
+import { getUserSession } from "@/lib/session";
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 
@@ -32,10 +33,12 @@ export async function searchFeatureHubs(){
   const cookie = await cookies();
 
   const token = cookie.get("ourhub-auth")?.value
+  const { id } = await getUserSession();
+
 
 
   try{
-    const response = await backEndApi.get(`/hub/find/featured`/* ,{
+    const response = await backEndApi.get(`/hub/find/featured/${id}`/* ,{
       headers: {
         "Authorization": `Bearer ${token}`,
       }
@@ -44,6 +47,27 @@ export async function searchFeatureHubs(){
 
     return hubs || [];
 
+  }catch(err){
+    const axiosError = err as AxiosError;
+    
+    throw new AxiosError(axiosError.message);
+  }
+}
+
+export async function enterHub(hubId: string){
+  const cookie = await cookies();
+
+  const token = cookie.get("ourhub-auth")?.value
+  const { id } = await getUserSession();
+
+
+
+  try{
+    await backEndApi.put(`/hub/enter/${id}/${hubId}`/* ,{
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
+    } */);
   }catch(err){
     const axiosError = err as AxiosError;
     
