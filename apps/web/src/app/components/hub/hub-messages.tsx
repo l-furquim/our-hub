@@ -27,6 +27,8 @@ type HubMessagesProps = {
 
 export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, userId, userName }) => {
 
+    console.log(hubMessages);
+
     const [messages, setMessages] = useState(hubMessages);
     const ref = useRef<HTMLTextAreaElement>(null);
 

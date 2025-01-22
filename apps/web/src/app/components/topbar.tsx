@@ -8,6 +8,8 @@ type TopBarProps = {
 };
 
 export const TopBar: React.FC<TopBarProps> = ({name, id, image}) => {
+  console.log(image);
+
   return (
     <div className="flex w-full justify-end mt-3 gap-8">
       <Button className="bg-transparent hover:text-zinc-300 hover:bg-transparent">

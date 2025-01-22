@@ -9,9 +9,7 @@ const schema = z.object({
 })
 
 export async function newMessage(data: FormData){
-  console.log("data");
 
-  console.log(data.get("user"));
 
   const validatedFields = schema.safeParse({
     user: data.get("user"),

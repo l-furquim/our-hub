@@ -15,15 +15,12 @@ export async function RegisterUser(data: string){
     
     const resData = response.data;
 
-    console.log(data);
-
     const cookie =  await cookies();
 
     cookie.set("ourhub-auth",resData.token);
     
   }catch(e){
     const axiosError = e as AxiosError;
-    console.log(axiosError.message);
 
     throw axiosError;
   }

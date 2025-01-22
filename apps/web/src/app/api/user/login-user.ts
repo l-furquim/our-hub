@@ -13,9 +13,6 @@ export async function LoginUser(data: string){
     const response = await backEndApi.post("/user/login", data);
     const { session, token } = response.data as LoginResponse;
 
-
-    console.log(token);
-
     if(response.status == 200){
       await createSession(token, session);
 

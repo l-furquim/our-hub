@@ -14,7 +14,6 @@ const schema = z.object({
 
 export async function newHub(prevState: any, formData: FormData){
 
-  console.log(formData.get("name"));
 
   const validatedFields = schema.safeParse({
     name: formData.get('name'),
@@ -29,7 +28,7 @@ export async function newHub(prevState: any, formData: FormData){
   try{
     const user = await getUserSession();
 
-    console.log("Aqui o user id", user.id);
+
 
     const response = await backEndApi.post("/hub/new", JSON.stringify({
       name: validatedFields.data.name,

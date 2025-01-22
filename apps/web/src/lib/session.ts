@@ -34,7 +34,6 @@ export async function getUserSession(){
   const session = await getServerSession(authOptions);
   const user = session?.user;
 
-  console.log(user.id);
 
   if (user === null || user === undefined) {
     redirect("/error");

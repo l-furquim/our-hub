@@ -23,7 +23,6 @@ import { RegisterUser } from "../../user/register-user";
 
         async signIn({ user, account, profile}){
           if(!user) return false;
-          console.log(account?.userId);
 
           try{
             await RegisterUser(

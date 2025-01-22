@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-type ExploreHubsProps = {
+export type ExploreHubsProps = {
   hubs: [{
     id: string,
     name: string,

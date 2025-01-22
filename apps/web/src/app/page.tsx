@@ -5,7 +5,6 @@ import { GithubButton } from "./components/register/github-button";
 import { GoogleButton } from "./components/register/google-button";
 
 export default function Home() {
-  console.log("Alo")
 
   return (
     <div className="w-full h-[80vh] flex justify-center items-center">
