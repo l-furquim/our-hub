@@ -30,7 +30,7 @@ jobs:
 
             # Modificado para considerar a pasta 'api' onde está o Dockerfile
             - name: Build docker image
-              run: sudo docker build -t furqas/ourhub-api -f Dockerfile .
+              run: sudo docker build -t furqas/ourhub-api -f ./api/Dockerfile .
 
             - name: Push image docker
               run: sudo docker push furqas/ourhub-api
