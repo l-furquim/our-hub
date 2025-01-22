@@ -26,23 +26,24 @@ jobs:
               run: ./gradlew build -x test
 
             - name: Login Docker Hub
-              run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+              run: sudo docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
 
+            # Modificado para considerar a pasta 'api' onde está o Dockerfile
             - name: Build docker image
-              run: docker build -t furqas/ourhub-api .
+              run: sudo docker build -t furqas/ourhub-api ./api
 
             - name: Push image docker
-              run: docker push furqas/ourhub-api
+              run: sudo docker push furqas/ourhub-api
               
     deploy:
         needs: build
         runs-on: self-hosted
         steps:
             - name: Pull image from docker hub
-              run: docker pull furqas/ourhub-api:latest
+              run: sudo docker pull furqas/ourhub-api:latest
 
             - name: Remove docker container
-              run: docker rm -f ourhub-api
+              run: sudo docker rm -f ourhub-api
 
             - name: Run docker container
-              run: docker run -d -p 8080:8080 -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_URL=${{secrets.DATABASE_URL}} --name ourhub-api furqas/ourhub-api
+              run: sudo docker run -d -p 8080:8080 -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_URL=${{secrets.DATABASE_URL}} --name ourhub-api furqas/ourhub-api
