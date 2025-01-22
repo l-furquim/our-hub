@@ -1,8 +1,0 @@
-POST http://localhost:8080/hub/new
-Content-Type: application/json
-headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvdXJodWItYXV0aCIsInN1YiI6Imx1aXphQGdtYWlsLmNvbSIsImV4cCI6MTczNzE1NDM4NX0.B6Zn45yTDklCqMqPhgC8ctmmVdjDxBi7fYNdmN4fk-A 
-
-{
-  "name": "Hub amigos",
-  "userId": "5682efd9-c8b1-4a2a-9b8d-a6da61d7477a"
-}
