@@ -7,6 +7,7 @@ import ourhub.api.domains.exceptions.hub.HubNotFoundException;
 import ourhub.api.domains.exceptions.hub.InvalidDataForNewHubException;
 import ourhub.api.domains.gateway.HubGateway;
 import ourhub.api.domains.gateway.UserGateway;
+import ourhub.api.dtos.FeaturedHubDto;
 import ourhub.api.services.HubService;
 
 import java.util.List;
@@ -63,5 +64,21 @@ public class HubServiceImplementation implements HubService {
         }
 
         return this.hubGateway.findByUserId(id);
+    }
+
+    @Override
+    public List<FeaturedHubDto> findFeatured(String userId) {
+        final var hubs = this.hubGateway.findTheMostUsers(userId);
+
+        return hubs;
+    }
+
+    @Override
+    public void enterHub(String userId,String hubId) {
+        if(userId.isBlank() || hubId.isBlank()){
+            throw  new HubNotFoundException("Cannot enter with a hub or user id blank");
+        }
+
+        this.hubGateway.enterHub(userId, hubId);
     }
 }

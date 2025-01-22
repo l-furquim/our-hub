@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ourhub.api.domains.entities.Hub;
 import ourhub.api.domains.entities.User;
 import ourhub.api.domains.gateway.HubGateway;
+import ourhub.api.dtos.FeaturedHubDto;
 import ourhub.api.repositories.jpa.mappers.HubMapper;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +15,13 @@ public class HubJpaGateway implements HubGateway {
 
     private final HubJpaRepository repository;
     private final UserJpaRepository userRepository;
+    private final UserHubJpaRepository userHubRepository;
 
-    public HubJpaGateway(final HubJpaRepository hubJpaRepository, UserJpaRepository userJpaRepository){
+
+    public HubJpaGateway(final HubJpaRepository hubJpaRepository, UserJpaRepository userJpaRepository, UserHubJpaRepository userHubRepository){
         this.repository = hubJpaRepository;
         this.userRepository = userJpaRepository;
+        this.userHubRepository = userHubRepository;
     }
 
 
@@ -65,5 +69,22 @@ public class HubJpaGateway implements HubGateway {
 
         return hubs.stream().map((h -> HubMapper.toDomain(h)
         )).toList();
+    }
+
+    @Override
+    public List<FeaturedHubDto> findTheMostUsers(String userId) {
+        final var hubs = this.repository.findTopTenHubsByUserCount(userId);
+
+        if(hubs.isEmpty()){
+            return new ArrayList<FeaturedHubDto>();
+        }
+
+        return hubs;
+    }
+
+    @Transactional
+    @Override
+    public void enterHub(String userId, String hubId) {
+        this.userHubRepository.insertIntoUserHUb(userId, hubId);
     }
 }

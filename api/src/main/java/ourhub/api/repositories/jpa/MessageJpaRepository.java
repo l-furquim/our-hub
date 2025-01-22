@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface MessageJpaRepository extends JpaRepository<MessageJpaModel, Integer> {
 
-    @Query("SELECT m FROM message m WHERE m.hubId = :hubId ORDER BY m.sendedAt DESC")
+    @Query("SELECT m FROM message m WHERE m.hubId = :hubId ORDER BY m.sendedAt")
     List<MessageJpaModel> findByHubId(@Param("hubId") String id, Pageable pageable);
 }

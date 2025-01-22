@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import ourhub.api.repositories.jpa.models.HubJpaModel;
 
 @Repository
-public interface UserHubRepository extends JpaRepository<HubJpaModel, String> {
+public interface UserHubJpaRepository extends JpaRepository<HubJpaModel, String> {
 
     @Modifying
-    @Query(value = "INSERT INTO user_hub (hub_id, user_id) VALUES (:userId, :hubId)", nativeQuery = true)
+    @Query(value = "INSERT INTO user_hub (hub_id, user_id) VALUES (:hubId, :userId)", nativeQuery = true)
     void insertIntoUserHUb(@Param("userId") String userId, @Param("hubId") String hubId);
 }

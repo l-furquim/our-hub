@@ -9,6 +9,8 @@ type MessageContainer = {
 }
 
 export const MessageContainer: React.FC<MessageContainer> = ({messages, userId}) => {
+  console.log("Id do usuario atual " + userId);
+
   if(!messages){
     return;
   }

@@ -31,7 +31,7 @@ public class MessageController {
         final var message = this.messageService.create(request.message(), Instant.now(), request.hubId(),request.userId(), request.userName());
 
         return new NewMessageResponse(
-                request.userName(),request.message(), message.getId()
+                request.userName(),request.userId(),request.message(), message.getId()
         );
     }
 

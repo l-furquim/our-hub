@@ -45,7 +45,7 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
             id: receivedMessage.messageId,
             content: receivedMessage.content,
             sendedAt: new Date(),
-            userId: userId,
+            userId: receivedMessage.userId,
             userName: receivedMessage.user,
           }]);
         });
@@ -99,7 +99,7 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
 
       <div className="flex rounded-md w-full gap-5 mt-5 justify-center items-center">
         <img className="rounded-xl" width={32} height={32} src="http://github.com/l-furquim.png" alt="Hub icon" />
-        <h1>{hubInfo.name}</h1>
+        <h1>{hubInfo.name.replaceAll("%20", " ")}</h1>
       </div>
 
       <div className="flex-1 items-center overflow-hidden mt-10 w-full flex flex-col gap-5">
@@ -111,7 +111,7 @@ export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, 
           id="message"
           name="message"
           className="h-10 w-full flex justify-center items-center p-2 resize-none overflow-hidden text-base border-zinc-500 border-[1px] rounded-md focus:outline-none text-zinc-200 bg-transparent"
-          placeholder="Digite"
+          placeholder="Digite algo..."
           ref={ref}
         />
         <Button type="submit" className="bg-cyan-900 hover:bg-cyan-950 text-zinc-200">
