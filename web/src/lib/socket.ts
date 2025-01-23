@@ -2,7 +2,7 @@ import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 
 export const client = new Client({
-  webSocketFactory: () => new SockJS("http://3.140.240.95:8080/ourhub-messages-websocket"),
+  webSocketFactory: () => new SockJS("http://ec2-3-19-232-47.us-east-2.compute.amazonaws.com:8080/ourhub-messages-websocket"),
   connectHeaders: {},
   debug: (str) => {
     console.log(str);
