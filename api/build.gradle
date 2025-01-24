@@ -1,0 +1,40 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'ourhub'
+version = '0.0.1-SNAPSHOT'
+
+bootJar {
+    archiveBaseName = 'ourhub-api'
+    version = '1.0.0'
+}
+
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.6.0'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '3.4.1'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'com.auth0:java-jwt:4.4.0'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.1.1'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
