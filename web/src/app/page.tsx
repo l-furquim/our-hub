@@ -1,6 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { RegisterForm } from "./components/register/register-form";
-import { Github } from "lucide-react";
 import { GithubButton } from "./components/register/github-button";
 import { GoogleButton } from "./components/register/google-button";
 

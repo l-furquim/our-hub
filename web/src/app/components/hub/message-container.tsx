@@ -1,8 +1,6 @@
 import type { Message } from "@/app/types/message-types"
-import { Button } from "@/components/ui/button"
 import { convertToISODate } from "@/lib/utils"
 import { ScrollArea } from "@radix-ui/react-scroll-area"
-import { DoorOpen } from "lucide-react"
 import type React from "react"
 
 type MessageContainer = {

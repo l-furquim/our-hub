@@ -18,7 +18,7 @@ export type LoginFormType = z.infer<typeof LoginFormSchema>;
 export const LoginForm = () => {
     const [message, setMessage] = useState(<></>);
   
-    const {handleSubmit, register,setValue} = useForm<LoginFormType>({
+    const { handleSubmit, register } = useForm<LoginFormType>({
         resolver: zodResolver(LoginFormSchema),
         defaultValues: {
             email: "",

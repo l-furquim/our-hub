@@ -1,14 +1,11 @@
 import { MessageCircleMore, PackageOpen } from "lucide-react";
 import { TopBar } from "../components/topbar";
-
 import { SideBar } from "../components/home/sidebar";
 import { getUserSession } from "@/lib/session";
-import { getServerSession } from "next-auth";
-import { useSession } from "next-auth/react";
 
 export default async function HomePage(){
   // const {name, id} = await getSession(); 
-  const { id, name, email, image } = await getUserSession();
+  const { id, name, image } = await getUserSession();
 
   return (
     <div className="w-full h-full flex">

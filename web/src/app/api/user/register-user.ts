@@ -1,13 +1,9 @@
 "use server"
-import type { ApiErrorResponse, ApiResponse } from "@/app/types/api-response-types";
+
 import { backEndApi } from "@/lib/api";
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 
-type RegisterTokenResponse = {
-  token?: string,
-  errorMessage: AxiosError 
-}
 
 export async function RegisterUser(data: string){
   try{  
