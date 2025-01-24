@@ -4,7 +4,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -37,7 +36,7 @@ export const NewHubButton = () => {
           <form action={formAction} className="flex flex-col w-full h-full gap-5" >
             <div className="w-full flex gap-3 justify-center items-center">
               <input id="name" name="name" className="rounded-md border-none focus:outline-none placeholder:text-sm text-sm bg-zinc-900 p-2 w-64 h-10"    type="text" placeholder="O nome vem aqui" />
-              <img src="http://github.com/l-furquim.png" className="rounded-xl" width={32} height={32} />
+              <img alt="hub icon" src="http://github.com/l-furquim.png" className="rounded-xl" width={32} height={32} />
             </div>
             <p className="w-full justify-center flex " >{state?.message}</p>
             <div className="w-full justify-end flex">

@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button"
-import { Bell } from "lucide-react"
 
 type TopBarProps = {
   name: string,
@@ -7,7 +6,7 @@ type TopBarProps = {
   image: string
 };
 
-export const TopBar: React.FC<TopBarProps> = ({name, id, image}) => {
+export const TopBar: React.FC<TopBarProps> = ({image}) => {
   console.log(image);
 
   return (

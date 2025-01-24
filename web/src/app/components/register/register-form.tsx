@@ -19,7 +19,7 @@ export type RegisterFormType = z.infer<typeof RegisterFormSchema>;
 export const RegisterForm = () => {
     const [message, setMessage] = useState(<></>);
 
-    const {handleSubmit, register,setValue} = useForm<RegisterFormType>({
+    const { handleSubmit, register } = useForm<RegisterFormType>({
       resolver: zodResolver(RegisterFormSchema),
       defaultValues: {
           name: "",
@@ -29,14 +29,17 @@ export const RegisterForm = () => {
   });
 
   async function handleRegister(data: RegisterFormType){
-      const response = await RegisterUser(JSON.stringify(data));
-
-      if(response?.sucessMessage){
-        setMessage(<p className="text-sm text-emerald-700">Conta criada com sucesso!</p>);
+    
+    try{
+      await RegisterUser(JSON.stringify(data));
+      
+      setMessage(<p className="text-sm text-emerald-700">Conta criada com sucesso!</p>);
 
         setTimeout(() => location.replace("/login"), 1000)
-      }else{
-        setMessage(<p className="text-sm text-red-700">{response?.errorMessage}</p>)
+      }catch(err){
+        const aError = err as AxiosError;
+
+        setMessage(<p className="text-sm text-red-700">{aError.cause?.message}</p>)
       }
 
 }

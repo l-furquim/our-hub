@@ -1,12 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Hammer, Rocket } from "lucide-react"
 import Link from "next/link"
-/* 
-{
-  params,
-}: {
-  params: { tag: string };
-} */
 
 
 export const ExploreSideBar = () => {

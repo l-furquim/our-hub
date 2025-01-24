@@ -8,7 +8,7 @@ import type { UserAuth } from "@/app/types/user-types"
 
 
 
-export const SideBar: React.FC<UserAuth> = async ({name, id}) => {
+export const SideBar: React.FC<UserAuth> = async ({id}) => {
  const hubs = await SearchUserHubs(id);
 
   return (

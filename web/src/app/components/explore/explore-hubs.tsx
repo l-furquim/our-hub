@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button"
-import { Check, LogIn } from "lucide-react"
+import { Check } from "lucide-react"
 import Link from "next/link"
 import { EnterHub } from "./enter-hub"
 
@@ -8,7 +7,7 @@ export type ExploreHubsProps = {
     id: string,
     name: string,
     userId: string,
-    userCount: Number,
+    userCount: number,
     loggedUserIn: boolean
   }]
 }

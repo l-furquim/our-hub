@@ -1,13 +1,10 @@
 "use server"
 
-
 import { cookies } from "next/headers"
 import type { User } from "@/app/types/user-types"
-import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation";
-import { getToken } from "next-auth/jwt";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import type { NextRequest } from "next/server";
+import { authOptions } from "@/lib/utils";
+import { getServerSession } from "next-auth";
 
 
 export async function createSession(token: string, session: User){

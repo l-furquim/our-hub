@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { MessageContainer } from "./message-container";
-import { DoorOpen, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { Message } from "@/app/types/message-types";
 import { z } from "zod";
@@ -28,9 +28,6 @@ type HubMessagesProps = {
 };
 
 export const HubMessages: React.FC<HubMessagesProps> = ({ hubMessages, hubInfo, userId, userName }) => {
-
-    console.log(hubMessages);
-
     const [messages, setMessages] = useState(hubMessages);
     const ref = useRef<HTMLTextAreaElement>(null);
 

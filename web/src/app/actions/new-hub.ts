@@ -2,6 +2,7 @@
 
 import { backEndApi } from "@/lib/api";
 import { getUserSession } from "@/lib/session";
+import { AxiosError } from "axios";
 
 import { z } from 'zod'
  
@@ -28,9 +29,7 @@ export async function newHub(prevState: any, formData: FormData){
   try{
     const user = await getUserSession();
 
-
-
-    const response = await backEndApi.post("/hub/new", JSON.stringify({
+    await backEndApi.post("/hub/new", JSON.stringify({
       name: validatedFields.data.name,
       userId: user.id
     }));
@@ -40,7 +39,8 @@ export async function newHub(prevState: any, formData: FormData){
     };
 
   }catch(err){
-
+    const axiosError = err as AxiosError;
+    throw new AxiosError(axiosError.cause?.message);
   }
 
  

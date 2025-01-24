@@ -20,7 +20,7 @@ type HubProp = {
   hub: {
     id: string,
     name: string,
-    userCount: Number,
+    userCount: number,
   }
 }
 
